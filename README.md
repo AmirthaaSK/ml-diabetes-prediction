@@ -4,7 +4,7 @@ A machine learning-powered web application that predicts diabetes risk using adv
 
 ## 🌐 Live Application
 
-**[Access the Application Here](https://ml-diabetes-prediction-big0.onrender.com)**
+**[Access the Application Here]( https://ml-diabetes-prediction-project.onrender.com)**
 
 ---
 

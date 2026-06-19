@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diet Recommendations - DiabetesCare</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+        }
+
+        .navbar {
+            background: white;
+            padding: 15px 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .navbar-brand {
+            font-size: 24px;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .navbar-user {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .user-info {
+            color: #555;
+            font-size: 14px;
+        }
+
+        .user-info strong {
+            color: #667eea;
+        }
+
+        .logout-btn {
+            background: #ff6b6b;
+            color: white;
+            padding: 8px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: #ff5252;
+            transform: translateY(-2px);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 32px;
+        }
+
+        .page-header p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .nav-menu {
+            background: white;
+            padding: 15px 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .nav-link {
+            padding: 10px 20px;
+            background: #f0f4ff;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 13px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .diet-section {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 25px;
+            border-left: 5px solid #667eea;
+        }
+
+        .diet-section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 22px;
+        }
+
+        .food-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .food-item {
+            background: #f9faff;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #51cf66;
+        }
+
+        .food-item.avoid {
+            border-left-color: #ff6b6b;
+            background: #fff5f5;
+        }
+
+        .food-item strong {
+            color: #333;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .food-item p {
+            color: #666;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .meal-plan {
+            background: #f0f4ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .meal-plan h4 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .meal {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            border-left: 3px solid #667eea;
+        }
+
+        .meal-time {
+            font-weight: 700;
+            color: #667eea;
+            font-size: 13px;
+        }
+
+        .meal-content {
+            color: #666;
+            margin-top: 5px;
+            font-size: 14px;
+        }
+
+        .tips-box {
+            background: #fff8f0;
+            border-left: 4px solid #ff9500;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .tips-box h4 {
+            color: #ff9500;
+            margin-bottom: 10px;
+        }
+
+        .tips-box ul {
+            margin-left: 20px;
+            color: #666;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .back-btn {
+            background: #667eea;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .back-btn:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Navbar -->
+        <div class="navbar">
+            <div class="navbar-brand">🏥 DiabetesCare</div>
+            <div class="navbar-user">
+                <div class="user-info">Welcome, <strong>{{ username }}</strong></div>
+                <a href="/logout" class="logout-btn">Logout</a>
+            </div>
+        </div>
+
+        <!-- Navigation Menu -->
+        <div class="nav-menu">
+            <a href="/home" class="nav-link">📋 Dashboard</a>
+            <a href="/health-tips" class="nav-link">💡 Health Tips</a>
+            <a href="/diet-recommendations" class="nav-link active">🍎 Diet Guide</a>
+            <a href="/exercise-guide" class="nav-link">💪 Exercise</a>
+            <a href="/risk-assessment" class="nav-link">⚠️ Risk Assessment</a>
+            <a href="/bmi-calculator" class="nav-link">📊 BMI Calc</a>
+            <a href="/about" class="nav-link">ℹ️ About</a>
+        </div>
+
+        <!-- Header -->
+        <div class="page-header">
+            <h1>🍎 Diabetes-Friendly Diet Guide</h1>
+            <p>Nutritional guidelines to help manage blood glucose levels</p>
+        </div>
+
+        <!-- Foods to Eat -->
+        <div class="diet-section">
+            <h2>✅ Foods to Eat</h2>
+            <div class="food-list">
+                <div class="food-item">
+                    <strong>Leafy Greens</strong>
+                    <p>Spinach, kale, lettuce. Low carb, high fiber. Rich in vitamins and minerals.</p>
+                </div>
+                <div class="food-item">
+                    <strong>Whole Grains</strong>
+                    <p>Brown rice, oats, whole wheat. Lower glycemic index, slower glucose rise.</p>
+                </div>
+                <div class="food-item">
+                    <strong>Lean Proteins</strong>
+                    <p>Chicken, fish, tofu, legumes. Essential for muscle maintenance and satiety.</p>
+                </div>
+                <div class="food-item">
+                    <strong>Fatty Fish</strong>
+                    <p>Salmon, mackerel, sardines. Rich in omega-3s, reduces inflammation.</p>
+                </div>
+                <div class="food-item">
+                    <strong>Vegetables</strong>
+                    <p>Broccoli, cauliflower, carrots. Nutrient-dense, low in calories and carbs.</p>
+                </div>
+                <div class="food-item">
+                    <strong>Berries</strong>
+                    <p>Blueberries, strawberries, blackberries. High in antioxidants and fiber.</p>
+                </div>
+                <div class="food-item">
+                    <strong>Nuts & Seeds</strong>
+                    <p>Almonds, walnuts, flax seeds. Healthy fats, improve cholesterol levels.</p>
+                </div>
+                <div class="food-item">
+                    <strong>Avocados</strong>
+                    <p>Monounsaturated fats, potassium. Excellent for heart and metabolic health.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Foods to Avoid -->
+        <div class="diet-section">
+            <h2>❌ Foods to Avoid</h2>
+            <div class="food-list">
+                <div class="food-item avoid">
+                    <strong>Sugary Drinks</strong>
+                    <p>Soda, juices, sweet tea. Causes rapid blood glucose spikes.</p>
+                </div>
+                <div class="food-item avoid">
+                    <strong>Refined Carbs</strong>
+                    <p>White bread, white rice, pastries. High glycemic index, poor nutritional value.</p>
+                </div>
+                <div class="food-item avoid">
+                    <strong>Processed Foods</strong>
+                    <p>Fast food, packaged snacks. High in sodium, sugar, and unhealthy fats.</p>
+                </div>
+                <div class="food-item avoid">
+                    <strong>Desserts & Candy</strong>
+                    <p>Cakes, cookies, chocolate. Direct sugar intake causes severe glucose spikes.</p>
+                </div>
+                <div class="food-item avoid">
+                    <strong>Full-Fat Dairy</strong>
+                    <p>Whole milk, high-fat cheese. High in saturated fats and calories.</p>
+                </div>
+                <div class="food-item avoid">
+                    <strong>Alcohol</strong>
+                    <p>Beer, sweet wine, cocktails. Can cause unpredictable blood sugar changes.</p>
+                </div>
+                <div class="food-item avoid">
+                    <strong>Fried Foods</strong>
+                    <p>Chips, fried chicken, donuts. High in trans fats and calories.</p>
+                </div>
+                <div class="food-item avoid">
+                    <strong>High-Sodium Foods</strong>
+                    <p>Canned soups, processed meats. Increases blood pressure risk.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sample Meal Plan -->
+        <div class="diet-section">
+            <h2>📅 Sample Daily Meal Plan</h2>
+            <div class="meal-plan">
+                <h4>Day 1: Balanced Nutrition</h4>
+                <div class="meal">
+                    <div class="meal-time">🌅 Breakfast (7:00 AM)</div>
+                    <div class="meal-content">Oatmeal with berries, almonds, and unsweetened almond milk. Black coffee or green tea.</div>
+                </div>
+                <div class="meal">
+                    <div class="meal-time">🥗 Mid-Morning Snack (10:00 AM)</div>
+                    <div class="meal-content">Apple with 1 tablespoon almond butter</div>
+                </div>
+                <div class="meal">
+                    <div class="meal-time">🍽️ Lunch (12:30 PM)</div>
+                    <div class="meal-content">Grilled salmon, brown rice, steamed broccoli with olive oil</div>
+                </div>
+                <div class="meal">
+                    <div class="meal-time">🥤 Afternoon Snack (3:00 PM)</div>
+                    <div class="meal-content">Handful of walnuts and a cucumber</div>
+                </div>
+                <div class="meal">
+                    <div class="meal-time">🍴 Dinner (6:30 PM)</div>
+                    <div class="meal-content">Lean chicken breast, sweet potato, leafy green salad with vinaigrette</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tips -->
+        <div class="tips-box">
+            <h4>💡 Important Dietary Tips</h4>
+            <ul>
+                <li><strong>Portion Control:</strong> Use smaller plates, measure portions carefully</li>
+                <li><strong>Meal Timing:</strong> Eat at regular intervals to maintain stable blood sugar</li>
+                <li><strong>Fiber Intake:</strong> Aim for 25-30g of fiber per day to slow glucose absorption</li>
+                <li><strong>Hydration:</strong> Drink 8-10 glasses of water daily</li>
+                <li><strong>Glycemic Index:</strong> Choose foods with low to medium glycemic index values</li>
+                <li><strong>Food Labels:</strong> Read nutrition labels carefully, watch for hidden sugars</li>
+                <li><strong>Cooking Methods:</strong> Prefer grilling, baking, or steaming over frying</li>
+                <li><strong>Consult Professionals:</strong> Work with a registered dietitian for personalized advice</li>
+            </ul>
+        </div>
+
+        <div style="text-align: center;">
+            <a href="/home" class="back-btn">← Back to Dashboard</a>
+        </div>
+    </div>
+</body>
+</html>

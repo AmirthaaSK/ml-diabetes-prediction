@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Risk Assessment - DiabetesCare</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+        }
+
+        .navbar {
+            background: white;
+            padding: 15px 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .navbar-brand {
+            font-size: 24px;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .navbar-user {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .user-info {
+            color: #555;
+            font-size: 14px;
+        }
+
+        .user-info strong {
+            color: #667eea;
+        }
+
+        .logout-btn {
+            background: #ff6b6b;
+            color: white;
+            padding: 8px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: #ff5252;
+            transform: translateY(-2px);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 32px;
+        }
+
+        .page-header p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .nav-menu {
+            background: white;
+            padding: 15px 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .nav-link {
+            padding: 10px 20px;
+            background: #f0f4ff;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 13px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .risk-section {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 25px;
+            border-left: 5px solid #667eea;
+        }
+
+        .risk-section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 22px;
+        }
+
+        .risk-factor {
+            background: #f9faff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #667eea;
+        }
+
+        .risk-factor h4 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 15px;
+        }
+
+        .risk-factor p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .risk-factor.high {
+            border-left-color: #ff6b6b;
+            background: #fff5f5;
+        }
+
+        .risk-factor.high h4 {
+            color: #ff6b6b;
+        }
+
+        .risk-factor.medium {
+            border-left-color: #ff9500;
+            background: #fff8f0;
+        }
+
+        .risk-factor.medium h4 {
+            color: #ff9500;
+        }
+
+        .risk-factor.low {
+            border-left-color: #51cf66;
+            background: #f0fff4;
+        }
+
+        .risk-factor.low h4 {
+            color: #51cf66;
+        }
+
+        .metric-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .metric-table th,
+        .metric-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 13px;
+        }
+
+        .metric-table th {
+            background: #f0f4ff;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .metric-table tr:hover {
+            background: #f9faff;
+        }
+
+        .metric-value {
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        .complication-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .complication-card {
+            background: #fff5f5;
+            border-left: 4px solid #ff6b6b;
+            padding: 15px;
+            border-radius: 6px;
+        }
+
+        .complication-card h5 {
+            color: #ff6b6b;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .complication-card p {
+            color: #666;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .prevention-tips {
+            background: #f0fff4;
+            border-left: 4px solid #51cf66;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 25px;
+        }
+
+        .prevention-tips h3 {
+            color: #51cf66;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .prevention-tips ul {
+            margin-left: 20px;
+            color: #666;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .back-btn {
+            background: #667eea;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .back-btn:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Navbar -->
+        <div class="navbar">
+            <div class="navbar-brand">🏥 DiabetesCare</div>
+            <div class="navbar-user">
+                <div class="user-info">Welcome, <strong>{{ username }}</strong></div>
+                <a href="/logout" class="logout-btn">Logout</a>
+            </div>
+        </div>
+
+        <!-- Navigation Menu -->
+        <div class="nav-menu">
+            <a href="/home" class="nav-link">📋 Dashboard</a>
+            <a href="/health-tips" class="nav-link">💡 Health Tips</a>
+            <a href="/diet-recommendations" class="nav-link">🍎 Diet Guide</a>
+            <a href="/exercise-guide" class="nav-link">💪 Exercise</a>
+            <a href="/risk-assessment" class="nav-link active">⚠️ Risk Assessment</a>
+            <a href="/bmi-calculator" class="nav-link">📊 BMI Calc</a>
+            <a href="/about" class="nav-link">ℹ️ About</a>
+        </div>
+
+        <!-- Header -->
+        <div class="page-header">
+            <h1>⚠️ Diabetes Risk Assessment</h1>
+            <p>Understanding risk factors and early warning signs</p>
+        </div>
+
+        <!-- Key Risk Factors -->
+        <div class="risk-section">
+            <h2>🎯 Key Risk Factors for Diabetes</h2>
+
+            <div class="risk-factor high">
+                <h4>🔴 HIGH RISK: Glucose Level</h4>
+                <p><strong>Normal Range:</strong> 70-100 mg/dL (fasting)</p>
+                <p><strong>Pre-Diabetes:</strong> 100-125 mg/dL (fasting)</p>
+                <p><strong>Diabetes:</strong> ≥ 126 mg/dL (fasting) or ≥ 200 mg/dL (random)</p>
+                <p>High glucose levels indicate your body is not effectively managing blood sugar.</p>
+            </div>
+
+            <div class="risk-factor high">
+                <h4>🔴 HIGH RISK: Body Mass Index (BMI)</h4>
+                <p><strong>Underweight:</strong> BMI &lt; 18.5</p>
+                <p><strong>Normal Weight:</strong> BMI 18.5-24.9</p>
+                <p><strong>Overweight:</strong> BMI 25-29.9</p>
+                <p><strong>Obese:</strong> BMI ≥ 30</p>
+                <p>Obesity is strongly linked to insulin resistance and type 2 diabetes development.</p>
+            </div>
+
+            <div class="risk-factor medium">
+                <h4>🟡 MEDIUM RISK: Blood Pressure</h4>
+                <p><strong>Normal:</strong> &lt; 120/80 mmHg</p>
+                <p><strong>Elevated:</strong> 120-129/&lt;80 mmHg</p>
+                <p><strong>High:</strong> ≥ 140/90 mmHg</p>
+                <p>High blood pressure often occurs with diabetes and increases complication risk.</p>
+            </div>
+
+            <div class="risk-factor medium">
+                <h4>🟡 MEDIUM RISK: Age & Family History</h4>
+                <p><strong>Age:</strong> Risk increases significantly after age 45</p>
+                <p><strong>Family History:</strong> Having a parent or sibling with diabetes increases risk by up to 50%</p>
+                <p>Genetic predisposition combined with lifestyle factors dramatically increases risk.</p>
+            </div>
+
+            <div class="risk-factor medium">
+                <h4>🟡 MEDIUM RISK: Insulin Level</h4>
+                <p><strong>Normal:</strong> 2-25 mu U/ml (fasting)</p>
+                <p><strong>High:</strong> &gt; 25 mu U/ml</p>
+                <p>Elevated insulin suggests your body is working harder to manage glucose.</p>
+            </div>
+
+            <div class="risk-factor low">
+                <h4>🟢 OTHER RISK FACTORS</h4>
+                <p>• Sedentary lifestyle and lack of physical activity</p>
+                <p>• Poor diet high in processed foods and sugar</p>
+                <p>• Smoking and excessive alcohol consumption</p>
+                <p>• Chronic stress and poor sleep quality</p>
+                <p>• Pregnancy-related gestational diabetes</p>
+                <p>• Ethnicity (higher risk in certain populations)</p>
+            </div>
+        </div>
+
+        <!-- Risk Metrics Table -->
+        <div class="risk-section">
+            <h2>📊 Diabetes Risk Prediction Metrics</h2>
+            <table class="metric-table">
+                <thead>
+                    <tr>
+                        <th>Metric</th>
+                        <th>Low Risk</th>
+                        <th>Medium Risk</th>
+                        <th>High Risk</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Glucose (mg/dL)</strong></td>
+                        <td class="metric-value">70-100</td>
+                        <td class="metric-value">100-125</td>
+                        <td class="metric-value">&gt;125</td>
+                    </tr>
+                    <tr>
+                        <td><strong>BMI</strong></td>
+                        <td class="metric-value">18.5-24.9</td>
+                        <td class="metric-value">25-29.9</td>
+                        <td class="metric-value">&gt;30</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Blood Pressure</strong></td>
+                        <td class="metric-value">&lt;120/80</td>
+                        <td class="metric-value">120-139/80-89</td>
+                        <td class="metric-value">&gt;140/90</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Insulin (mu U/ml)</strong></td>
+                        <td class="metric-value">2-12</td>
+                        <td class="metric-value">12-25</td>
+                        <td class="metric-value">&gt;25</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Age (years)</strong></td>
+                        <td class="metric-value">&lt;45</td>
+                        <td class="metric-value">45-60</td>
+                        <td class="metric-value">&gt;60</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Potential Complications -->
+        <div class="risk-section">
+            <h2>⚠️ Potential Diabetes Complications</h2>
+            <div class="complication-grid">
+                <div class="complication-card">
+                    <h5>Heart Disease & Stroke</h5>
+                    <p>High blood sugar damages blood vessels. Diabetics are 2-4 times more likely to have heart disease.</p>
+                </div>
+                <div class="complication-card">
+                    <h5>Kidney Damage</h5>
+                    <p>High blood sugar can damage kidney filters, potentially leading to kidney failure requiring dialysis.</p>
+                </div>
+                <div class="complication-card">
+                    <h5>Eye Damage (Retinopathy)</h5>
+                    <p>Diabetes is a leading cause of blindness. Regular eye exams are essential for early detection.</p>
+                </div>
+                <div class="complication-card">
+                    <h5>Nerve Damage (Neuropathy)</h5>
+                    <p>High blood sugar damages nerves, causing pain, numbness, or loss of feeling, especially in feet.</p>
+                </div>
+                <div class="complication-card">
+                    <h5>Foot Problems</h5>
+                    <p>Nerve damage combined with poor circulation can lead to infections and amputations if untreated.</p>
+                </div>
+                <div class="complication-card">
+                    <h5>Dental Disease</h5>
+                    <p>Diabetes increases infection risk and gum disease. Maintain excellent oral hygiene and regular check-ups.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Prevention Tips -->
+        <div class="prevention-tips">
+            <h3>✅ How to Reduce Your Risk</h3>
+            <ul>
+                <li><strong>Lose Weight:</strong> Even 5-10% weight loss can significantly improve blood sugar control</li>
+                <li><strong>Exercise Regularly:</strong> Aim for 150 minutes of moderate activity per week</li>
+                <li><strong>Eat Healthy:</strong> Choose whole grains, lean proteins, and plenty of vegetables</li>
+                <li><strong>Limit Sugar:</strong> Avoid sugary drinks and processed foods</li>
+                <li><strong>Get Enough Sleep:</strong> Aim for 7-9 hours of quality sleep nightly</li>
+                <li><strong>Manage Stress:</strong> Practice meditation, yoga, or other relaxation techniques</li>
+                <li><strong>Quit Smoking:</strong> Smoking dramatically increases diabetes risk</li>
+                <li><strong>Monitor Regularly:</strong> Check your blood pressure, glucose, and cholesterol regularly</li>
+                <li><strong>Stay Connected:</strong> Join support groups and share experiences with others</li>
+                <li><strong>Consult Healthcare Providers:</strong> Work with doctors and nutritionists for personalized guidance</li>
+            </ul>
+        </div>
+
+        <div style="text-align: center;">
+            <a href="/home" class="back-btn">← Back to Dashboard</a>
+        </div>
+    </div>
+</body>
+</html>

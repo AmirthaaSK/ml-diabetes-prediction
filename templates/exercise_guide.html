@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise Guide - DiabetesCare</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+        }
+
+        .navbar {
+            background: white;
+            padding: 15px 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .navbar-brand {
+            font-size: 24px;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .navbar-user {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .user-info {
+            color: #555;
+            font-size: 14px;
+        }
+
+        .user-info strong {
+            color: #667eea;
+        }
+
+        .logout-btn {
+            background: #ff6b6b;
+            color: white;
+            padding: 8px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: #ff5252;
+            transform: translateY(-2px);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 32px;
+        }
+
+        .page-header p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .nav-menu {
+            background: white;
+            padding: 15px 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .nav-link {
+            padding: 10px 20px;
+            background: #f0f4ff;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 13px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .exercise-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .exercise-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid #667eea;
+            transition: all 0.3s ease;
+        }
+
+        .exercise-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .exercise-card h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .exercise-info {
+            background: #f9faff;
+            padding: 12px;
+            border-radius: 6px;
+            margin: 12px 0;
+            font-size: 13px;
+            color: #666;
+        }
+
+        .info-label {
+            font-weight: 700;
+            color: #333;
+            display: block;
+            margin-bottom: 3px;
+        }
+
+        .benefits {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        .benefits h5 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 13px;
+            text-transform: uppercase;
+        }
+
+        .benefits ul {
+            margin-left: 20px;
+            font-size: 13px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .schedule-section {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 25px;
+            border-left: 5px solid #51cf66;
+        }
+
+        .schedule-section h2 {
+            color: #51cf66;
+            margin-bottom: 20px;
+            font-size: 22px;
+        }
+
+        .weekly-plan {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .day {
+            background: #f9fff8;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 3px solid #51cf66;
+            text-align: center;
+        }
+
+        .day-name {
+            font-weight: 700;
+            color: #51cf66;
+            margin-bottom: 8px;
+        }
+
+        .day-activity {
+            color: #666;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .tips-box {
+            background: #fff8f0;
+            border-left: 4px solid #ff9500;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 25px;
+        }
+
+        .tips-box h3 {
+            color: #ff9500;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .tips-box ul {
+            margin-left: 20px;
+            color: #666;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .back-btn {
+            background: #667eea;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .back-btn:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Navbar -->
+        <div class="navbar">
+            <div class="navbar-brand">🏥 DiabetesCare</div>
+            <div class="navbar-user">
+                <div class="user-info">Welcome, <strong>{{ username }}</strong></div>
+                <a href="/logout" class="logout-btn">Logout</a>
+            </div>
+        </div>
+
+        <!-- Navigation Menu -->
+        <div class="nav-menu">
+            <a href="/home" class="nav-link">📋 Dashboard</a>
+            <a href="/health-tips" class="nav-link">💡 Health Tips</a>
+            <a href="/diet-recommendations" class="nav-link">🍎 Diet Guide</a>
+            <a href="/exercise-guide" class="nav-link active">💪 Exercise</a>
+            <a href="/risk-assessment" class="nav-link">⚠️ Risk Assessment</a>
+            <a href="/bmi-calculator" class="nav-link">📊 BMI Calc</a>
+            <a href="/about" class="nav-link">ℹ️ About</a>
+        </div>
+
+        <!-- Header -->
+        <div class="page-header">
+            <h1>💪 Exercise & Physical Activity Guide</h1>
+            <p>Personalized workout recommendations for diabetes prevention and management</p>
+        </div>
+
+        <!-- Exercise Types -->
+        <div class="exercise-grid">
+            <div class="exercise-card">
+                <h3>🚶 Walking</h3>
+                <div class="exercise-info">
+                    <span class="info-label">Intensity:</span> Moderate
+                </div>
+                <div class="exercise-info">
+                    <span class="info-label">Duration:</span> 30-60 minutes
+                </div>
+                <div class="exercise-info">
+                    <span class="info-label">Frequency:</span> 5 days/week
+                </div>
+                <div class="benefits">
+                    <h5>Benefits</h5>
+                    <ul>
+                        <li>Improves insulin sensitivity</li>
+                        <li>Lowers blood sugar naturally</li>
+                        <li>Strengthens heart and bones</li>
+                        <li>Easy for beginners</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="exercise-card">
+                <h3>🚴 Cycling</h3>
+                <div class="exercise-info">
+                    <span class="info-label">Intensity:</span> Moderate to High
+                </div>
+                <div class="exercise-info">
+                    <span class="info-label">Duration:</span> 30-45 minutes
+                </div>
+                <div class="exercise-info">
+                    <span class="info-label">Frequency:</span> 3-4 days/week
+                </div>
+                <div class="benefits">
+                    <h5>Benefits</h5>
+                    <ul>
+                        <li>Burns significant calories</li>
+                        <li>Low impact on joints</li>
+                        <li>Increases cardiovascular fitness</li>
+                        <li>Great for weight management</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="exercise-card">
+                <h3>🏊 Swimming</h3>
+                <div class="exercise-info">
+                    <span class="info-label">Intensity:</span> Moderate to High
+                </div>
+                <div class="exercise-info">
+                    <span class="info-label">Duration:</span> 30-45 minutes
+                </div>
+                <div class="exercise-info">
+                    <span class="info-label">Frequency:</span> 3-4 days/week
+                </div>
+                <div class="benefits">
+                    <h5>Benefits</h5>
+                    <ul>
+                        <li>Full-body workout</li>
+                        <li>Excellent for joint health</li>
+                        <li>Improves lung capacity</li>
+                        <li>Low injury risk</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="exercise-card">
+                <h3>🧘 Yoga</h3>
+                <div class="exercise-info">
+                    <span class="info-label">Intensity:</span> Low to Moderate
+                </div>
+                <div class="exercise-info">
+                    <span class="info-label">Duration:</span> 30-60 minutes
+                </div>
+                <div class="exercise-info">
+                    <span class="info-label">Frequency:</span> 3-5 days/week
+                </div>
+                <div class="benefits">
+                    <h5>Benefits</h5>
+                    <ul>
+                        <li>Reduces stress and cortisol</li>
+                        <li>Improves flexibility</li>
+                        <li>Enhances mind-body connection</li>
+                        <li>Helps blood sugar control</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="exercise-card">
+                <h3>💪 Strength Training</h3>
+                <div class="exercise-info">
+                    <span class="info-label">Intensity:</span> High
+                </div>
+                <div class="exercise-info">
+                    <span class="info-label">Duration:</span> 30-45 minutes
+                </div>
+                <div class="exercise-info">
+                    <span class="info-label">Frequency:</span> 2-3 days/week
+                </div>
+                <div class="benefits">
+                    <h5>Benefits</h5>
+                    <ul>
+                        <li>Builds muscle mass</li>
+                        <li>Increases metabolism</li>
+                        <li>Improves glucose uptake</li>
+                        <li>Boosts overall strength</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="exercise-card">
+                <h3>🕺 Dancing</h3>
+                <div class="exercise-info">
+                    <span class="info-label">Intensity:</span> Moderate
+                </div>
+                <div class="exercise-info">
+                    <span class="info-label">Duration:</span> 30-60 minutes
+                </div>
+                <div class="exercise-info">
+                    <span class="info-label">Frequency:</span> 3-4 days/week
+                </div>
+                <div class="benefits">
+                    <h5>Benefits</h5>
+                    <ul>
+                        <li>Fun and engaging</li>
+                        <li>Improves coordination</li>
+                        <li>Great for cardiovascular health</li>
+                        <li>Social and mentally uplifting</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Weekly Schedule -->
+        <div class="schedule-section">
+            <h2>📅 Recommended Weekly Exercise Schedule</h2>
+            <div class="weekly-plan">
+                <div class="day">
+                    <div class="day-name">Monday</div>
+                    <div class="day-activity">Walking 45 min + Stretching 10 min</div>
+                </div>
+                <div class="day">
+                    <div class="day-name">Tuesday</div>
+                    <div class="day-activity">Strength Training 40 min</div>
+                </div>
+                <div class="day">
+                    <div class="day-name">Wednesday</div>
+                    <div class="day-activity">Cycling 45 min</div>
+                </div>
+                <div class="day">
+                    <div class="day-name">Thursday</div>
+                    <div class="day-activity">Yoga 50 min</div>
+                </div>
+                <div class="day">
+                    <div class="day-name">Friday</div>
+                    <div class="day-activity">Swimming 40 min</div>
+                </div>
+                <div class="day">
+                    <div class="day-name">Saturday</div>
+                    <div class="day-activity">Dancing or Sports 60 min</div>
+                </div>
+                <div class="day">
+                    <div class="day-name">Sunday</div>
+                    <div class="day-activity">Light Walk + Rest 30 min</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Important Tips -->
+        <div class="tips-box">
+            <h3>⚠️ Important Exercise Guidelines</h3>
+            <ul>
+                <li><strong>Start Gradually:</strong> Begin with low intensity and gradually increase</li>
+                <li><strong>Warm-up & Cool-down:</strong> Always spend 5-10 minutes warming up and cooling down</li>
+                <li><strong>Stay Hydrated:</strong> Drink water before, during, and after exercise</li>
+                <li><strong>Monitor Blood Sugar:</strong> Check levels before and after intense exercise</li>
+                <li><strong>Wear Proper Shoes:</strong> Invest in good quality athletic footwear</li>
+                <li><strong>Consistency:</strong> Regular exercise is better than sporadic intense workouts</li>
+                <li><strong>Listen to Your Body:</strong> Stop if you experience pain or extreme fatigue</li>
+                <li><strong>Consult Your Doctor:</strong> Get medical clearance before starting new exercise programs</li>
+                <li><strong>Rest Days:</strong> Include at least 1-2 rest days per week for recovery</li>
+                <li><strong>Mix It Up:</strong> Combine cardio, strength, and flexibility training for best results</li>
+            </ul>
+        </div>
+
+        <div style="text-align: center;">
+            <a href="/home" class="back-btn">← Back to Dashboard</a>
+        </div>
+    </div>
+</body>
+</html>

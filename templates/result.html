@@ -12,48 +12,51 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --primary-red: #E85D5D;
+            --dark-red: #C43E3E;
+            --white: #FFFFFF;
+            --gray-dark: #1a1a1a;
+            --gray-light: #f5f5f5;
+            --border-color: #e0e0e0;
+            --success-green: #27ae60;
+        }
+
         body {
-            background: linear-gradient(135deg, #0f3460 0%, #16213e 50%, #1a1a2e 100%);
-            min-height: 100vh;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            padding: 20px;
-            color: #ecf0f1;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: var(--gray-light);
+            color: var(--gray-dark);
+            line-height: 1.6;
         }
 
         .container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
+            padding: 0 20px;
         }
 
+        /* NAVBAR */
         .navbar {
-            background: linear-gradient(135deg, rgba(44, 62, 80, 0.9), rgba(26, 26, 46, 0.95));
-            backdrop-filter: blur(10px);
-            padding: 18px 30px;
-            border-radius: 12px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            background: var(--white);
+            padding: 16px 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 30px;
+        }
+
+        .navbar .container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
-            animation: slideDown 0.6s ease-out;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
 
         .navbar-brand {
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 700;
-            color: #ecf0f1;
+            color: var(--primary-red);
             letter-spacing: -0.5px;
         }
 
@@ -64,48 +67,45 @@
         }
 
         .user-info {
-            color: #bdc3c7;
+            color: var(--gray-dark);
             font-size: 13px;
-            font-weight: 500;
-        }
-
-        .user-info strong {
-            color: #f39c12;
+            font-weight: 600;
         }
 
         .logout-btn {
-            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-            color: white;
-            padding: 10px 22px;
+            background: var(--primary-red);
+            color: var(--white);
+            padding: 10px 20px;
             border: none;
             border-radius: 6px;
             cursor: pointer;
             font-size: 13px;
-            font-weight: 600;
+            font-weight: 700;
             transition: all 0.3s ease;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .logout-btn:hover {
-            background: linear-gradient(135deg, #c0392b 0%, #a93226 100%);
+            background: var(--dark-red);
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.3);
         }
 
+        /* RESULT CONTAINER */
         .result-container {
-            background: linear-gradient(135deg, rgba(44, 62, 80, 0.95), rgba(36, 47, 61, 0.98));
-            padding: 45px;
-            border-radius: 15px;
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4);
-            animation: slideUp 0.6s ease-out;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            text-align: center;
+            background: var(--white);
+            padding: 50px;
+            border-radius: 10px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--border-color);
+            animation: slideUp 0.5s ease-out;
         }
 
         @keyframes slideUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(20px);
             }
             to {
                 opacity: 1;
@@ -114,37 +114,44 @@
         }
 
         .result-header {
-            margin-bottom: 35px;
+            text-align: center;
+            margin-bottom: 40px;
         }
 
         .result-header h1 {
-            color: #ecf0f1;
-            font-size: 32px;
+            color: var(--gray-dark);
+            font-size: 38px;
             margin-bottom: 10px;
             font-weight: 700;
+            letter-spacing: -0.5px;
         }
 
         .result-header p {
-            color: #bdc3c7;
-            font-size: 14px;
+            color: #666;
+            font-size: 15px;
+            font-weight: 500;
         }
 
+        /* RESULT BADGE */
         .result-badge {
             display: inline-block;
-            padding: 25px 50px;
-            border-radius: 12px;
-            font-size: 28px;
+            width: 100%;
+            padding: 40px;
+            border-radius: 10px;
+            font-size: 36px;
             font-weight: 700;
-            margin: 25px 0;
-            animation: scaleIn 0.7s ease-out;
+            margin: 30px 0;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
+            text-align: center;
+            animation: scaleIn 0.6s ease-out;
+            color: var(--white);
         }
 
         @keyframes scaleIn {
             from {
                 opacity: 0;
-                transform: scale(0.8);
+                transform: scale(0.95);
             }
             to {
                 opacity: 1;
@@ -153,194 +160,231 @@
         }
 
         .badge-diabetic {
-            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-            color: white;
-            box-shadow: 0 10px 30px rgba(231, 76, 60, 0.4);
+            background: linear-gradient(135deg, var(--primary-red), var(--dark-red));
+            box-shadow: 0 8px 25px rgba(232, 93, 93, 0.25);
         }
 
         .badge-non-diabetic {
-            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
-            color: white;
-            box-shadow: 0 10px 30px rgba(39, 174, 96, 0.4);
+            background: linear-gradient(135deg, var(--success-green), #1e8449);
+            box-shadow: 0 8px 25px rgba(39, 174, 96, 0.25);
         }
 
+        /* PROBABILITY SECTION */
         .probability-section {
-            background: linear-gradient(135deg, rgba(243, 156, 18, 0.15), rgba(230, 126, 34, 0.1));
-            padding: 35px;
-            border-radius: 12px;
-            margin: 35px 0;
-            border: 2px solid rgba(243, 156, 18, 0.2);
+            background: var(--gray-light);
+            padding: 40px;
+            border-radius: 10px;
+            margin: 40px 0;
+            text-align: center;
+            border: 1px solid var(--border-color);
         }
 
         .probability-label {
-            color: #bdc3c7;
-            font-size: 13px;
+            color: #666;
+            font-size: 12px;
             margin-bottom: 15px;
             text-transform: uppercase;
             letter-spacing: 1px;
-            font-weight: 600;
+            font-weight: 700;
         }
 
         .probability-value {
-            font-size: 56px;
+            font-size: 60px;
             font-weight: 700;
-            color: #f39c12;
-            margin-bottom: 20px;
+            color: var(--primary-red);
+            margin-bottom: 25px;
         }
 
         .probability-bar {
             width: 100%;
-            height: 25px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
+            height: 28px;
+            background: #e0e0e0;
+            border-radius: 8px;
             overflow: hidden;
-            margin-bottom: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
         }
 
         .probability-fill {
             height: 100%;
-            background: linear-gradient(90deg, #f39c12, #e67e22);
-            transition: width 0.8s ease-out;
-            border-radius: 12px;
+            background: linear-gradient(90deg, var(--primary-red), var(--dark-red));
+            transition: width 1s ease-out;
+            border-radius: 8px;
         }
 
         .risk-level {
             font-size: 16px;
-            font-weight: 600;
-            color: #ecf0f1;
+            font-weight: 700;
+            color: var(--gray-dark);
         }
 
+        .risk-level strong {
+            color: var(--primary-red);
+        }
+
+        /* PATIENT DATA */
         .patient-data {
-            background: linear-gradient(135deg, rgba(52, 73, 94, 0.5), rgba(44, 62, 80, 0.6));
-            padding: 30px;
-            border-radius: 12px;
-            margin: 35px 0;
+            background: var(--gray-light);
+            padding: 35px;
+            border-radius: 10px;
+            margin: 40px 0;
             text-align: left;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border-color);
         }
 
         .patient-data h3 {
-            color: #f39c12;
-            margin-bottom: 25px;
+            color: var(--gray-dark);
+            margin-bottom: 30px;
             font-size: 16px;
-            text-align: center;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            font-weight: 700;
         }
 
         .data-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
         }
 
         .data-item {
-            background: linear-gradient(135deg, rgba(26, 26, 46, 0.8), rgba(15, 52, 96, 0.6));
-            padding: 18px;
+            background: var(--white);
+            padding: 20px;
             border-radius: 8px;
-            border-left: 4px solid #f39c12;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-left: 4px solid var(--primary-red);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
         }
 
         .data-label {
-            color: #7f8c8d;
+            color: #999;
             font-size: 11px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
+            font-weight: 700;
         }
 
         .data-value {
-            color: #ecf0f1;
-            font-size: 18px;
-            font-weight: 600;
+            color: var(--gray-dark);
+            font-size: 20px;
+            font-weight: 700;
         }
 
+        /* RECOMMENDATION */
         .recommendation {
-            padding: 25px;
-            border-radius: 8px;
-            margin: 35px 0;
-            text-align: left;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 10px;
+            margin: 40px 0;
+            border-left: 5px solid;
+            border: 1px solid var(--border-color);
         }
 
         .recommendation.diabetic {
-            background: linear-gradient(135deg, rgba(192, 57, 43, 0.2), rgba(231, 76, 60, 0.15));
-            border-left: 4px solid #e74c3c;
+            background: #fef5f5;
+            border-left-color: var(--primary-red);
         }
 
         .recommendation.non-diabetic {
-            background: linear-gradient(135deg, rgba(39, 174, 96, 0.15), rgba(46, 204, 113, 0.1));
-            border-left: 4px solid #27ae60;
+            background: #f1f9f6;
+            border-left-color: var(--success-green);
         }
 
         .recommendation h4 {
-            margin-bottom: 12px;
-            font-size: 14px;
+            margin-bottom: 15px;
+            font-size: 15px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            font-weight: 700;
         }
 
         .recommendation.diabetic h4 {
-            color: #f5b7b1;
+            color: var(--dark-red);
         }
 
         .recommendation.non-diabetic h4 {
-            color: #abebc6;
+            color: var(--success-green);
         }
 
         .recommendation p {
-            color: #bdc3c7;
-            font-size: 13px;
-            line-height: 1.7;
+            color: var(--gray-dark);
+            font-size: 14px;
+            line-height: 1.8;
+            font-weight: 500;
         }
 
+        /* BUTTONS */
         .button-group {
             display: flex;
             gap: 15px;
             justify-content: center;
-            margin-top: 35px;
+            margin-top: 40px;
             flex-wrap: wrap;
         }
 
         .btn {
-            padding: 12px 40px;
+            padding: 14px 40px;
             border: none;
             border-radius: 8px;
             font-size: 14px;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
             display: inline-block;
-            min-width: 180px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            min-width: 200px;
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-            color: white;
+            background: linear-gradient(135deg, var(--primary-red), var(--dark-red));
+            color: var(--white);
+            box-shadow: 0 4px 12px rgba(232, 93, 93, 0.25);
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(231, 76, 60, 0.4);
+            box-shadow: 0 6px 20px rgba(232, 93, 93, 0.35);
         }
 
         .btn-secondary {
-            background: rgba(255, 255, 255, 0.1);
-            color: #bdc3c7;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: var(--white);
+            color: var(--primary-red);
+            border: 2px solid var(--primary-red);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         }
 
         .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.15);
+            background: var(--gray-light);
             transform: translateY(-2px);
         }
 
-        @media (max-width: 600px) {
+        /* FOOTER */
+        .footer {
+            background: var(--white);
+            color: var(--gray-dark);
+            text-align: center;
+            padding: 25px;
+            font-size: 12px;
+            margin-top: 40px;
+            border-top: 1px solid var(--border-color);
+            font-weight: 600;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
             .result-container {
                 padding: 30px 20px;
+            }
+
+            .result-header h1 {
+                font-size: 28px;
+            }
+
+            .result-badge {
+                font-size: 28px;
+                padding: 30px;
             }
 
             .data-grid {
@@ -348,10 +392,10 @@
             }
 
             .probability-value {
-                font-size: 42px;
+                font-size: 48px;
             }
 
-            .navbar {
+            .navbar .container {
                 flex-direction: column;
                 gap: 15px;
             }
@@ -361,37 +405,71 @@
                 justify-content: space-between;
             }
 
+            .btn {
+                min-width: auto;
+                width: 100%;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .result-container {
+                padding: 20px 15px;
+            }
+
+            .result-header h1 {
+                font-size: 24px;
+            }
+
             .result-badge {
                 font-size: 22px;
-                padding: 20px 40px;
+                padding: 20px;
+            }
+
+            .probability-value {
+                font-size: 42px;
+            }
+
+            .patient-data,
+            .probability-section {
+                padding: 20px;
+            }
+
+            .logout-btn {
+                padding: 8px 16px;
+                font-size: 12px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Navbar -->
-        <div class="navbar">
+    <div class="navbar">
+        <div class="container">
             <div class="navbar-brand">DiabetesCare</div>
             <div class="navbar-user">
                 <div class="user-info">User: <strong>{{ username }}</strong></div>
                 <a href="/logout" class="logout-btn">Logout</a>
             </div>
         </div>
+    </div>
 
-        <!-- Result Container -->
+    <div class="container">
         <div class="result-container">
+            <!-- HEADER -->
             <div class="result-header">
                 <h1>Prediction Result</h1>
-                <p>Based on the provided health metrics</p>
+                <p>Assessment based on provided health metrics</p>
             </div>
 
-            <!-- Result Badge -->
+            <!-- RESULT BADGE -->
             <div class="result-badge {% if prediction == 'Diabetic' %}badge-diabetic{% else %}badge-non-diabetic{% endif %}">
                 {{ prediction }}
             </div>
 
-            <!-- Probability Section -->
+            <!-- PROBABILITY SECTION -->
             <div class="probability-section">
                 <div class="probability-label">Diabetes Risk Probability</div>
                 <div class="probability-value">{{ probability }}%</div>
@@ -403,7 +481,7 @@
                 </div>
             </div>
 
-            <!-- Patient Data Summary -->
+            <!-- PATIENT DATA SUMMARY -->
             <div class="patient-data">
                 <h3>Patient Health Metrics</h3>
                 <div class="data-grid">
@@ -427,34 +505,44 @@
                         <div class="data-label">Pregnancies</div>
                         <div class="data-value">{{ pregnancies }}</div>
                     </div>
+                    <div class="data-item">
+                        <div class="data-label">Skin Thickness</div>
+                        <div class="data-value">{{ skinthickness }} mm</div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Recommendation -->
+            <!-- RECOMMENDATION -->
             {% if prediction == 'Diabetic' %}
             <div class="recommendation diabetic">
-                <h4>Important Recommendation</h4>
+                <h4>Clinical Recommendation</h4>
                 <p>
-                    Based on the prediction result, we recommend consulting with a healthcare professional for a comprehensive evaluation. 
-                    Consider monitoring your health metrics regularly and maintaining a healthy lifestyle. This prediction is for informational 
-                    purposes only and should not replace professional medical advice.
+                    Based on the assessment results, we recommend scheduling a consultation with a healthcare professional 
+                    for comprehensive evaluation and diagnosis. Monitor your health metrics regularly and maintain a healthy lifestyle 
+                    with proper diet and exercise. Please note: This prediction is for informational purposes only and should not 
+                    replace professional medical advice or diagnosis.
                 </p>
             </div>
             {% else %}
             <div class="recommendation non-diabetic">
                 <h4>Positive Assessment</h4>
                 <p>
-                    The prediction indicates a lower risk of diabetes. Continue maintaining healthy habits including regular exercise, 
-                    balanced diet, and routine health check-ups. Keep monitoring your health metrics to ensure they remain within normal ranges.
+                    The assessment indicates a lower diabetes risk based on current health metrics. Continue maintaining healthy 
+                    habits including regular physical activity, balanced nutrition, and routine health check-ups. Keep monitoring 
+                    your health metrics regularly to maintain optimal levels.
                 </p>
             </div>
             {% endif %}
 
-            <!-- Action Buttons -->
+            <!-- ACTION BUTTONS -->
             <div class="button-group">
                 <a href="/home" class="btn btn-primary">New Prediction</a>
                 <a href="/home" class="btn btn-secondary">Back to Dashboard</a>
             </div>
+        </div>
+
+        <div class="footer">
+            Copyright © 2026 DiabetesCare - Diabetes Risk Assessment System
         </div>
     </div>
 </body>

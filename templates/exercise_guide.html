@@ -6,31 +6,61 @@
     <title>Exercise Guide - DiabetesCare</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <style>
+        :root {
+            --primary-red: #E85D5D;
+            --light-red: #F5E6E6;
+            --lighter-red: #FCF1F1;
+            --dark-red: #C43E3E;
+            --white: #FFFFFF;
+            --gray-dark: #333333;
+            --gray-medium: #666666;
+            --gray-light: #F8F8F8;
+        }
+
         body {
-            background: linear-gradient(135deg, #0f3460 0%, #16213e 50%, #1a1a2e 100%);
+            background: linear-gradient(135deg, var(--light-red) 0%, var(--white) 100%);
             min-height: 100vh;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             padding: 20px;
-            color: #ecf0f1;
+            color: var(--gray-dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
 
         .navbar {
-            background: white;
-            padding: 15px 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(90deg, var(--primary-red), var(--dark-red));
+            padding: 18px 0;
+            box-shadow: 0 8px 32px rgba(232, 93, 93, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 3px solid var(--lighter-red);
+            margin-bottom: 30px;
+        }
+
+        .navbar .container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-            gap: 20px;
         }
 
         .navbar-brand {
-            font-size: 24px;
+            font-size: 26px;
             font-weight: 700;
-            color: #667eea;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .navbar-brand::before {
+            content: "🏥";
+            font-size: 28px;
         }
 
         .navbar-user {
@@ -40,256 +70,350 @@
         }
 
         .user-info {
-            color: #555;
-            font-size: 14px;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 13px;
+            font-weight: 500;
         }
 
         .user-info strong {
-            color: #667eea;
+            color: var(--lighter-red);
         }
 
         .logout-btn {
-            background: #ff6b6b;
-            color: white;
-            padding: 8px 20px;
+            background: var(--light-red);
+            color: var(--primary-red);
+            padding: 10px 22px;
             border: none;
             border-radius: 6px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 13px;
+            font-weight: 600;
             transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(232, 93, 93, 0.2);
         }
 
         .logout-btn:hover {
-            background: #ff5252;
-            transform: translateY(-2px);
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .page-header {
             background: white;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
-            text-align: center;
-        }
-
-        .page-header h1 {
-            color: #333;
-            margin-bottom: 10px;
-            font-size: 32px;
-        }
-
-        .page-header p {
-            color: #666;
-            font-size: 16px;
+            color: var(--dark-red);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(232, 93, 93, 0.3);
         }
 
         .nav-menu {
-            background: white;
-            padding: 15px 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(90deg, rgba(232, 93, 93, 0.95), rgba(196, 62, 62, 0.95));
+            padding: 12px 0;
+            box-shadow: 0 4px 16px rgba(232, 93, 93, 0.2);
             margin-bottom: 30px;
+            border-bottom: 2px solid var(--lighter-red);
+        }
+
+        .nav-menu .container {
             display: flex;
-            gap: 15px;
+            gap: 5px;
             flex-wrap: wrap;
+            overflow-x: auto;
         }
 
         .nav-link {
-            padding: 10px 20px;
-            background: #f0f4ff;
-            color: #667eea;
+            padding: 10px 18px;
+            background: rgba(255, 255, 255, 0.15);
+            color: rgba(255, 255, 255, 0.95);
             text-decoration: none;
             border-radius: 6px;
             font-weight: 600;
-            font-size: 13px;
+            font-size: 12px;
             transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            white-space: nowrap;
         }
 
         .nav-link:hover,
         .nav-link.active {
-            background: #667eea;
-            color: white;
+            background: white;
+            color: var(--primary-red);
+            border-color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px 0;
+        }
+
+        .page-header h1 {
+            color: var(--primary-red);
+            font-size: 42px;
+            margin-bottom: 12px;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(232, 93, 93, 0.1);
+        }
+
+        .page-header p {
+            color: var(--gray-medium);
+            font-size: 16px;
         }
 
         .exercise-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 25px;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
         }
 
         .exercise-card {
             background: white;
             padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            border-left: 5px solid #667eea;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(232, 93, 93, 0.1);
+            border-top: 5px solid var(--primary-red);
             transition: all 0.3s ease;
+            animation: slideUp 0.6s ease-out backwards;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .exercise-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(232, 93, 93, 0.2);
         }
 
         .exercise-card h3 {
-            color: #667eea;
-            margin-bottom: 15px;
-            font-size: 20px;
+            color: var(--primary-red);
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: 700;
         }
 
         .exercise-info {
-            background: #f9faff;
+            background: linear-gradient(135deg, var(--lighter-red), var(--light-red));
             padding: 12px;
             border-radius: 6px;
             margin: 12px 0;
             font-size: 13px;
-            color: #666;
+            border-left: 3px solid var(--primary-red);
         }
 
         .info-label {
             font-weight: 700;
-            color: #333;
+            color: var(--primary-red);
             display: block;
             margin-bottom: 3px;
+            text-transform: uppercase;
+            font-size: 11px;
         }
 
         .benefits {
             margin-top: 15px;
             padding-top: 15px;
-            border-top: 2px solid #e0e0e0;
+            border-top: 2px solid var(--light-red);
         }
 
         .benefits h5 {
-            color: #333;
+            color: var(--primary-red);
             margin-bottom: 10px;
             font-size: 13px;
             text-transform: uppercase;
+            font-weight: 700;
         }
 
         .benefits ul {
             margin-left: 20px;
             font-size: 13px;
-            color: #666;
-            line-height: 1.6;
+            color: var(--gray-dark);
+            line-height: 1.7;
         }
 
         .schedule-section {
             background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            margin-bottom: 25px;
-            border-left: 5px solid #51cf66;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(232, 93, 93, 0.1);
+            margin-bottom: 30px;
+            border: 2px solid var(--light-red);
         }
 
         .schedule-section h2 {
-            color: #51cf66;
-            margin-bottom: 20px;
-            font-size: 22px;
+            color: var(--primary-red);
+            margin-bottom: 30px;
+            font-size: 28px;
+            font-weight: 700;
         }
 
         .weekly-plan {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
             gap: 15px;
         }
 
         .day {
-            background: #f9fff8;
-            padding: 15px;
-            border-radius: 8px;
-            border-left: 3px solid #51cf66;
+            background: linear-gradient(135deg, var(--lighter-red), var(--light-red));
+            padding: 18px;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary-red);
             text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .day:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(232, 93, 93, 0.15);
         }
 
         .day-name {
             font-weight: 700;
-            color: #51cf66;
+            color: var(--primary-red);
             margin-bottom: 8px;
+            font-size: 14px;
+            text-transform: uppercase;
         }
 
         .day-activity {
-            color: #666;
+            color: var(--gray-dark);
             font-size: 13px;
             line-height: 1.6;
         }
 
-        .tips-box {
-            background: #fff8f0;
-            border-left: 4px solid #ff9500;
-            padding: 20px;
-            border-radius: 8px;
-            margin-top: 25px;
-        }
-
-        .tips-box h3 {
-            color: #ff9500;
-            margin-bottom: 15px;
-            font-size: 18px;
-        }
-
-        .tips-box ul {
-            margin-left: 20px;
-            color: #666;
+        .guidelines {
+            background: linear-gradient(135deg, var(--light-red), var(--lighter-red));
+            border-left: 5px solid var(--primary-red);
+            padding: 30px;
+            border-radius: 12px;
+            margin-top: 30px;
             font-size: 14px;
-            line-height: 1.8;
+            color: var(--gray-dark);
+            border: 2px solid #E8BBBB;
         }
 
-        .back-btn {
-            background: #667eea;
+        .guidelines h3 {
+            color: var(--primary-red);
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .guidelines ul {
+            margin-left: 20px;
+            color: var(--gray-dark);
+            font-size: 14px;
+            line-height: 1.9;
+        }
+
+        .guidelines li {
+            margin-bottom: 12px;
+        }
+
+        .guidelines li strong {
+            color: var(--primary-red);
+            font-weight: 700;
+        }
+
+        .footer {
+            background: linear-gradient(90deg, var(--primary-red), var(--dark-red));
             color: white;
-            padding: 12px 30px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            transition: all 0.3s ease;
-            margin-top: 20px;
+            text-align: center;
+            padding: 25px;
+            font-size: 13px;
+            margin-top: 40px;
+            box-shadow: 0 -4px 12px rgba(232, 93, 93, 0.2);
         }
 
-        .back-btn:hover {
-            background: #764ba2;
-            transform: translateY(-2px);
+        @media (max-width: 768px) {
+            .navbar .container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .navbar-user {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .exercise-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .schedule-section {
+                padding: 25px 20px;
+            }
+
+            .page-header h1 {
+                font-size: 32px;
+            }
+
+            .weekly-plan {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar-brand {
+                font-size: 22px;
+            }
+
+            .page-header h1 {
+                font-size: 26px;
+            }
+
+            .exercise-card {
+                padding: 20px;
+            }
+
+            .schedule-section {
+                padding: 20px 15px;
+            }
+
+            .weekly-plan {
+                grid-template-columns: 1fr;
+            }
+
+            .logout-btn {
+                padding: 8px 16px;
+                font-size: 12px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Navbar -->
-        <div class="navbar">
+    <div class="navbar">
+        <div class="container">
             <div class="navbar-brand">DiabetesCare</div>
             <div class="navbar-user">
                 <div class="user-info">Welcome, <strong>{{ username }}</strong></div>
                 <a href="/logout" class="logout-btn">Logout</a>
             </div>
         </div>
+    </div>
 
-        <!-- Navigation Menu -->
-        <div class="nav-menu">
+    <div class="nav-menu">
+        <div class="container">
             <a href="/home" class="nav-link">Dashboard</a>
             <a href="/health-tips" class="nav-link">Health Tips</a>
             <a href="/diet-recommendations" class="nav-link">Diet Guide</a>
             <a href="/exercise-guide" class="nav-link active">Exercise</a>
-            <a href="/risk-assessment" class="nav-link">Risk Assessment</a>
             <a href="/bmi-calculator" class="nav-link">BMI Calculator</a>
             <a href="/about" class="nav-link">About</a>
         </div>
+    </div>
 
-        <!-- Header -->
+    <div class="container">
         <div class="page-header">
             <h1>💪 Exercise & Physical Activity Guide</h1>
             <p>Personalized workout recommendations for diabetes prevention and management</p>
         </div>
 
-        <!-- Exercise Types -->
         <div class="exercise-grid">
             <div class="exercise-card">
                 <h3>🚶 Walking</h3>
@@ -424,7 +548,6 @@
             </div>
         </div>
 
-        <!-- Weekly Schedule -->
         <div class="schedule-section">
             <h2>📅 Recommended Weekly Exercise Schedule</h2>
             <div class="weekly-plan">
@@ -459,8 +582,7 @@
             </div>
         </div>
 
-        <!-- Important Tips -->
-        <div class="tips-box">
+        <div class="guidelines">
             <h3>⚠️ Important Exercise Guidelines</h3>
             <ul>
                 <li><strong>Start Gradually:</strong> Begin with low intensity and gradually increase</li>
@@ -470,15 +592,15 @@
                 <li><strong>Wear Proper Shoes:</strong> Invest in good quality athletic footwear</li>
                 <li><strong>Consistency:</strong> Regular exercise is better than sporadic intense workouts</li>
                 <li><strong>Listen to Your Body:</strong> Stop if you experience pain or extreme fatigue</li>
-                <li><strong>Consult Your Doctor:</strong> Get medical clearance before starting new exercise programs</li>
+                <li><strong>Consult Your Doctor:</strong> Get medical clearance before starting new programs</li>
                 <li><strong>Rest Days:</strong> Include at least 1-2 rest days per week for recovery</li>
                 <li><strong>Mix It Up:</strong> Combine cardio, strength, and flexibility training for best results</li>
             </ul>
         </div>
+    </div>
 
-        <div style="text-align: center;">
-            <a href="/home" class="back-btn">← Back to Dashboard</a>
-        </div>
+    <div class="footer">
+        <p>&copy; 2026 DiabetesCare - Diabetes Risk Assessment System</p>
     </div>
 </body>
 </html>

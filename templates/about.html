@@ -6,31 +6,61 @@
     <title>About - DiabetesCare</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <style>
+        :root {
+            --primary-red: #E85D5D;
+            --light-red: #F5E6E6;
+            --lighter-red: #FCF1F1;
+            --dark-red: #C43E3E;
+            --white: #FFFFFF;
+            --gray-dark: #333333;
+            --gray-medium: #666666;
+            --gray-light: #F8F8F8;
+        }
+
         body {
-            background: linear-gradient(135deg, #0f3460 0%, #16213e 50%, #1a1a2e 100%);
+            background: linear-gradient(135deg, var(--light-red) 0%, var(--white) 100%);
             min-height: 100vh;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             padding: 20px;
-            color: #ecf0f1;
+            color: var(--gray-dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
 
         .navbar {
-            background: white;
-            padding: 15px 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(90deg, var(--primary-red), var(--dark-red));
+            padding: 18px 0;
+            box-shadow: 0 8px 32px rgba(232, 93, 93, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 3px solid var(--lighter-red);
+            margin-bottom: 30px;
+        }
+
+        .navbar .container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-            gap: 20px;
         }
 
         .navbar-brand {
-            font-size: 24px;
+            font-size: 26px;
             font-weight: 700;
-            color: #667eea;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .navbar-brand::before {
+            content: "🏥";
+            font-size: 28px;
         }
 
         .navbar-user {
@@ -40,219 +70,263 @@
         }
 
         .user-info {
-            color: #555;
-            font-size: 14px;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 13px;
+            font-weight: 500;
         }
 
         .user-info strong {
-            color: #667eea;
+            color: var(--lighter-red);
         }
 
         .logout-btn {
-            background: #ff6b6b;
-            color: white;
-            padding: 8px 20px;
+            background: var(--light-red);
+            color: var(--primary-red);
+            padding: 10px 22px;
             border: none;
             border-radius: 6px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 13px;
+            font-weight: 600;
             transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(232, 93, 93, 0.2);
         }
 
         .logout-btn:hover {
-            background: #ff5252;
+            background: white;
+            color: var(--dark-red);
             transform: translateY(-2px);
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
+            box-shadow: 0 6px 20px rgba(232, 93, 93, 0.3);
         }
 
         .nav-menu {
-            background: white;
-            padding: 15px 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(90deg, rgba(232, 93, 93, 0.95), rgba(196, 62, 62, 0.95));
+            padding: 12px 0;
+            box-shadow: 0 4px 16px rgba(232, 93, 93, 0.2);
             margin-bottom: 30px;
+            border-bottom: 2px solid var(--lighter-red);
+        }
+
+        .nav-menu .container {
             display: flex;
-            gap: 15px;
+            gap: 5px;
             flex-wrap: wrap;
+            overflow-x: auto;
+            padding: 0 20px;
         }
 
         .nav-link {
-            padding: 10px 20px;
-            background: #f0f4ff;
-            color: #667eea;
+            padding: 10px 18px;
+            background: rgba(255, 255, 255, 0.15);
+            color: rgba(255, 255, 255, 0.95);
             text-decoration: none;
             border-radius: 6px;
             font-weight: 600;
-            font-size: 13px;
+            font-size: 12px;
             transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            white-space: nowrap;
         }
 
         .nav-link:hover,
         .nav-link.active {
-            background: #667eea;
-            color: white;
+            background: white;
+            color: var(--primary-red);
+            border-color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px 0;
+        }
+
+        .page-header h1 {
+            color: var(--primary-red);
+            font-size: 42px;
+            margin-bottom: 12px;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(232, 93, 93, 0.1);
+        }
+
+        .page-header p {
+            color: var(--gray-medium);
+            font-size: 16px;
         }
 
         .about-section {
             background: white;
             padding: 40px;
             border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            margin-bottom: 25px;
-            line-height: 1.8;
+            box-shadow: 0 4px 20px rgba(232, 93, 93, 0.1);
+            margin-bottom: 30px;
+            border: 2px solid var(--light-red);
+            animation: slideUp 0.6s ease-out;
         }
 
-        .about-section h1 {
-            color: #667eea;
-            margin-bottom: 20px;
-            font-size: 28px;
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .about-section h2 {
-            color: #333;
+            color: var(--primary-red);
             margin-top: 30px;
-            margin-bottom: 15px;
-            font-size: 20px;
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .about-section h2:first-of-type {
+            margin-top: 0;
         }
 
         .about-section p {
-            color: #666;
+            color: var(--gray-dark);
             font-size: 14px;
             margin-bottom: 15px;
+            line-height: 1.8;
         }
 
         .feature-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 20px;
-            margin: 25px 0;
+            margin: 30px 0;
         }
 
         .feature-card {
-            background: #f9faff;
-            padding: 20px;
+            background: linear-gradient(135deg, var(--lighter-red), var(--light-red));
+            padding: 25px;
             border-radius: 10px;
-            border-left: 4px solid #667eea;
+            border-top: 5px solid var(--primary-red);
             text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(232, 93, 93, 0.2);
         }
 
         .feature-card .icon {
             font-size: 40px;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+            display: block;
         }
 
         .feature-card h3 {
-            color: #333;
+            color: var(--primary-red);
             font-size: 15px;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
+            font-weight: 700;
         }
 
         .feature-card p {
-            color: #666;
+            color: var(--gray-dark);
             font-size: 12px;
             line-height: 1.6;
+            margin: 0;
         }
 
         .highlight {
-            background: #f0f4ff;
-            padding: 20px;
+            background: linear-gradient(135deg, var(--lighter-red), var(--light-red));
+            padding: 25px;
             border-radius: 10px;
-            border-left: 4px solid #667eea;
-            margin: 20px 0;
+            margin: 25px 0;
+            border-left: 5px solid var(--primary-red);
+            border: 2px solid #E8BBBB;
         }
 
         .highlight h3 {
-            color: #667eea;
-            margin-bottom: 10px;
+            color: var(--primary-red);
+            margin-bottom: 15px;
             font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
         }
 
         .highlight ul {
             margin-left: 20px;
-            color: #666;
+            color: var(--gray-dark);
             font-size: 13px;
+            line-height: 1.9;
         }
 
         .highlight li {
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
 
         .tech-stack {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 15px;
-            margin: 20px 0;
+            margin: 25px 0;
         }
 
         .tech-item {
-            background: #f0f4ff;
-            padding: 15px;
-            border-radius: 8px;
+            background: linear-gradient(135deg, var(--lighter-red), var(--light-red));
+            padding: 20px;
+            border-radius: 10px;
             text-align: center;
-            font-size: 13px;
-            border: 1px solid #e0e0f0;
+            border-left: 4px solid var(--primary-red);
+            transition: all 0.3s ease;
+        }
+
+        .tech-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(232, 93, 93, 0.15);
         }
 
         .tech-item strong {
-            color: #667eea;
+            color: var(--primary-red);
             display: block;
-            margin-bottom: 5px;
-        }
-
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin: 20px 0;
-        }
-
-        .team-member {
-            background: #f9faff;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            border: 1px solid #e0e0f0;
-        }
-
-        .team-member .role {
-            color: #667eea;
+            margin-bottom: 8px;
             font-weight: 700;
-            font-size: 13px;
-            text-transform: uppercase;
         }
 
-        .team-member p {
-            color: #666;
-            font-size: 13px;
-            margin-top: 5px;
+        .tech-item p {
+            color: var(--gray-dark);
+            font-size: 12px;
+            margin: 0;
         }
 
         .disclaimer {
-            background: #fff8f0;
-            border-left: 4px solid #ff9500;
-            padding: 20px;
+            background: linear-gradient(135deg, rgba(255, 149, 0, 0.1), rgba(255, 149, 0, 0.05));
+            border-left: 5px solid #FF9500;
+            padding: 25px;
             border-radius: 10px;
-            margin-top: 25px;
+            margin: 30px 0;
+            border: 2px solid #FFE4B5;
         }
 
         .disclaimer h3 {
-            color: #ff9500;
-            margin-bottom: 10px;
+            color: #FF9500;
+            margin-bottom: 15px;
             font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
         }
 
         .disclaimer p {
-            color: #666;
+            color: var(--gray-dark);
             font-size: 13px;
-            line-height: 1.7;
+            line-height: 1.8;
+            margin-bottom: 10px;
         }
 
         .back-btn {
-            background: #667eea;
+            background: linear-gradient(135deg, var(--primary-red), var(--dark-red));
             color: white;
             padding: 12px 30px;
             border: none;
@@ -261,28 +335,92 @@
             text-decoration: none;
             display: inline-block;
             transition: all 0.3s ease;
-            margin-top: 20px;
+            margin-top: 30px;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(232, 93, 93, 0.2);
         }
 
         .back-btn:hover {
-            background: #764ba2;
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(232, 93, 93, 0.4);
+        }
+
+        .footer {
+            background: linear-gradient(90deg, var(--primary-red), var(--dark-red));
+            color: white;
+            text-align: center;
+            padding: 25px;
+            font-size: 13px;
+            margin-top: 40px;
+            box-shadow: 0 -4px 12px rgba(232, 93, 93, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .navbar .container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .navbar-user {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .about-section {
+                padding: 25px 20px;
+            }
+
+            .page-header h1 {
+                font-size: 32px;
+            }
+
+            .feature-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar-brand {
+                font-size: 22px;
+            }
+
+            .page-header h1 {
+                font-size: 26px;
+            }
+
+            .about-section {
+                padding: 20px 15px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tech-stack {
+                grid-template-columns: 1fr;
+            }
+
+            .logout-btn {
+                padding: 8px 16px;
+                font-size: 12px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Navbar -->
-        <div class="navbar">
+    <div class="navbar">
+        <div class="container">
             <div class="navbar-brand">DiabetesCare</div>
             <div class="navbar-user">
                 <div class="user-info">Welcome, <strong>{{ username }}</strong></div>
                 <a href="/logout" class="logout-btn">Logout</a>
             </div>
         </div>
+    </div>
 
-        <!-- Navigation Menu -->
-        <div class="nav-menu">
+    <div class="nav-menu">
+        <div class="container">
             <a href="/home" class="nav-link">Dashboard</a>
             <a href="/health-tips" class="nav-link">Health Tips</a>
             <a href="/diet-recommendations" class="nav-link">Diet Guide</a>
@@ -291,16 +429,20 @@
             <a href="/bmi-calculator" class="nav-link">BMI Calculator</a>
             <a href="/about" class="nav-link active">About</a>
         </div>
+    </div>
 
-        <!-- About Section -->
+    <div class="container">
+        <div class="page-header">
+            <h1>ℹ️ About DiabetesCare</h1>
+            <p>Your trusted partner in diabetes prevention and health management</p>
+        </div>
+
         <div class="about-section">
-            <h1>About DiabetesCare</h1>
-
+            <h2>Our Mission</h2>
             <p>
                 <strong>DiabetesCare</strong> is an advanced machine learning-based diabetes prediction and prevention platform designed to empower individuals with information about their diabetes risk. Our mission is to make healthcare more accessible and help people take proactive steps toward better health.
             </p>
 
-            <h2>Our Mission</h2>
             <p>
                 We believe that early detection and prevention are key to managing diabetes effectively. By combining cutting-edge machine learning technology with evidence-based medical guidelines, DiabetesCare provides personalized insights and actionable recommendations to help you maintain optimal health.
             </p>
@@ -308,7 +450,7 @@
             <h2>✨ Key Features</h2>
             <div class="feature-grid">
                 <div class="feature-card">
-                    <div class="icon" style="color: black;">ML</div>
+                    <div class="icon">🤖</div>
                     <h3>ML Prediction</h3>
                     <p>Advanced Random Forest algorithm trained on real patient data</p>
                 </div>
@@ -318,7 +460,7 @@
                     <p>Protected user accounts with session management</p>
                 </div>
                 <div class="feature-card">
-                    <div class="icon" style="color: black;">Stats</div>
+                    <div class="icon">📊</div>
                     <h3>BMI Calculator</h3>
                     <p>Quick health metrics assessment and tracking</p>
                 </div>
@@ -361,7 +503,7 @@
             <div class="tech-stack">
                 <div class="tech-item">
                     <strong>Backend</strong>
-                    <p>Python Flask Web Framework</p>
+                    <p>Python Flask Framework</p>
                 </div>
                 <div class="tech-item">
                     <strong>Machine Learning</strong>
@@ -369,7 +511,7 @@
                 </div>
                 <div class="tech-item">
                     <strong>Data Processing</strong>
-                    <p>Pandas & NumPy Libraries</p>
+                    <p>Pandas & NumPy</p>
                 </div>
                 <div class="tech-item">
                     <strong>Frontend</strong>
@@ -381,20 +523,13 @@
                 </div>
                 <div class="tech-item">
                     <strong>Database</strong>
-                    <p>Server-side Sessions</p>
+                    <p>JSON-based Storage</p>
                 </div>
             </div>
 
-            <h2>👥 Our Team</h2>
-            <p>
-                DiabetesCare was developed by a team of healthcare professionals, data scientists, and software engineers dedicated to improving health outcomes through technology.
-            </p>
-
             <div class="highlight">
                 <h3>Medical Basis</h3>
-                <p>
-                    Our recommendations are based on guidelines from:
-                </p>
+                <p>Our recommendations are based on guidelines from:</p>
                 <ul>
                     <li>American Diabetes Association (ADA)</li>
                     <li>World Health Organization (WHO)</li>
@@ -406,25 +541,25 @@
 
             <h2>Accuracy & Validation</h2>
             <p>
-                Our machine learning model achieves approximately 78-82% accuracy on the test dataset. However, please note that this tool is for informational purposes only and should not replace professional medical advice from qualified healthcare providers.
+                Our machine learning model achieves approximately <strong>78-82% accuracy</strong> on the test dataset. However, please note that this tool is for informational purposes only and should not replace professional medical advice from qualified healthcare providers.
             </p>
 
             <h2>Privacy & Security</h2>
             <p>
                 Your health data is important to us. DiabetesCare implements:
             </p>
-            <ul style="margin-left: 20px; color: #666; font-size: 14px;">
-                <li>Secure user authentication</li>
-                <li>Session-based data management</li>
-                <li>No data storage in external databases</li>
-                <li>HTTPS ready for production deployment</li>
-                <li>Privacy-first design principles</li>
+            <ul style="margin-left: 20px; color: var(--gray-dark); font-size: 14px; line-height: 1.8;">
+                <li>✅ Secure user authentication</li>
+                <li>✅ Session-based data management</li>
+                <li>✅ No data storage in external databases</li>
+                <li>✅ HTTPS ready for production deployment</li>
+                <li>✅ Privacy-first design principles</li>
             </ul>
 
             <div class="disclaimer">
-                <h3>Important Disclaimer</h3>
+                <h3>⚠️ Important Disclaimer</h3>
                 <p>
-                    <strong>DiabetesCare is not a medical device.</strong> This application is designed for educational and informational purposes only. The predictions made by this system are not intended to diagnose, treat, cure, or prevent any disease. 
+                    <strong>DiabetesCare is not a medical device.</strong> This application is designed for educational and informational purposes only. The predictions made by this system are not intended to diagnose, treat, cure, or prevent any disease.
                 </p>
                 <p>
                     <strong>Always consult with a qualified healthcare professional</strong> before making any health-related decisions. If you suspect you have diabetes or any medical condition, please seek immediate medical attention from a licensed physician.
@@ -435,10 +570,8 @@
             </div>
 
             <h2>📧 Contact & Support</h2>
-            <p>
-                For questions, feedback, or support, please reach out to our team:
-            </p>
-            <ul style="margin-left: 20px; color: #666; font-size: 14px;">
+            <p style="font-weight: 600; color: var(--primary-red);">For questions, feedback, or support, please reach out to our team:</p>
+            <ul style="margin-left: 20px; color: var(--gray-dark); font-size: 14px; line-height: 1.9;">
                 <li><strong>Email:</strong> support@diabetescare.com</li>
                 <li><strong>Website:</strong> www.diabetescare.com</li>
                 <li><strong>Help Center:</strong> Available in the dashboard</li>
@@ -453,6 +586,10 @@
         <div style="text-align: center;">
             <a href="/home" class="back-btn">← Back to Dashboard</a>
         </div>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2026 DiabetesCare - Diabetes Risk Assessment System</p>
     </div>
 </body>
 </html>

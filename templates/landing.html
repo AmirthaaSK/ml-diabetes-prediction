@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DiabetesCare - Diabetes Risk Assessment</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-red: #E85D5D;
+            --dark-red: #C43E3E;
+            --white: #FFFFFF;
+            --gray-dark: #1a1a1a;
+            --gray-medium: #666666;
+            --gray-light: #f5f5f5;
+            --gray-lighter: #fafafa;
+            --border-color: #e0e0e0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: var(--gray-lighter);
+            color: var(--gray-dark);
+            line-height: 1.6;
+        }
+
+        /* HEADER / NAVBAR */
+        header {
+            background: var(--white);
+            padding: 20px 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--primary-red);
+            letter-spacing: -0.5px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-btn {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-btn-login {
+            background: transparent;
+            color: var(--primary-red);
+            border: 2px solid var(--primary-red);
+        }
+
+        .nav-btn-login:hover {
+            background: var(--gray-light);
+        }
+
+        .nav-btn-signup {
+            background: var(--primary-red);
+            color: var(--white);
+            box-shadow: 0 4px 12px rgba(232, 93, 93, 0.25);
+        }
+
+        .nav-btn-signup:hover {
+            background: var(--dark-red);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(232, 93, 93, 0.35);
+        }
+
+        /* HERO SECTION */
+        .hero {
+            background: linear-gradient(135deg, var(--white) 0%, rgba(232, 93, 93, 0.05) 100%);
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .hero-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 52px;
+            font-weight: 700;
+            color: var(--gray-dark);
+            margin-bottom: 20px;
+            letter-spacing: -0.8px;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            color: var(--gray-medium);
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+
+        .hero-description {
+            font-size: 15px;
+            color: var(--gray-medium);
+            margin-bottom: 40px;
+            line-height: 1.8;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 500;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            padding: 16px 48px;
+            background: linear-gradient(135deg, var(--primary-red), var(--dark-red));
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(232, 93, 93, 0.25);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(232, 93, 93, 0.35);
+        }
+
+        .btn-secondary {
+            padding: 16px 48px;
+            background: var(--white);
+            color: var(--primary-red);
+            border: 2px solid var(--primary-red);
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            display: inline-block;
+        }
+
+        .btn-secondary:hover {
+            background: var(--gray-light);
+            transform: translateY(-2px);
+        }
+
+        /* FEATURES SECTION */
+        .features {
+            padding: 80px 20px;
+            background: var(--white);
+        }
+
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 42px;
+            font-weight: 700;
+            color: var(--gray-dark);
+            margin-bottom: 15px;
+            letter-spacing: -0.5px;
+        }
+
+        .section-header p {
+            font-size: 16px;
+            color: var(--gray-medium);
+            font-weight: 500;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-box {
+            background: var(--gray-lighter);
+            padding: 40px 30px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .feature-box:hover {
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            transform: translateY(-4px);
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 20px;
+            background: var(--white);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+        }
+
+        .feature-box h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--gray-dark);
+            margin-bottom: 12px;
+        }
+
+        .feature-box p {
+            font-size: 14px;
+            color: var(--gray-medium);
+            line-height: 1.7;
+            font-weight: 500;
+        }
+
+        /* ABOUT SECTION */
+        .about {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, var(--white) 0%, rgba(232, 93, 93, 0.03) 100%);
+        }
+
+        .about-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .about-content h2 {
+            font-size: 38px;
+            font-weight: 700;
+            color: var(--gray-dark);
+            margin-bottom: 20px;
+            letter-spacing: -0.5px;
+        }
+
+        .about-content p {
+            font-size: 15px;
+            color: var(--gray-medium);
+            line-height: 1.9;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .about-points {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .point {
+            background: var(--white);
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-red);
+            border: 1px solid var(--border-color);
+        }
+
+        .point h4 {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--gray-dark);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .point p {
+            font-size: 13px;
+            color: var(--gray-medium);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* CTA SECTION */
+        .cta {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, var(--primary-red) 0%, var(--dark-red) 100%);
+            color: var(--white);
+            text-align: center;
+        }
+
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta h2 {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: -0.5px;
+        }
+
+        .cta p {
+            font-size: 16px;
+            margin-bottom: 40px;
+            font-weight: 500;
+            opacity: 0.95;
+        }
+
+        .cta .btn-primary {
+            background: var(--white);
+            color: var(--primary-red);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .cta .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--gray-dark);
+            color: var(--white);
+            padding: 50px 20px 30px 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h4 {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.8;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-red);
+        }
+
+        .footer-divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 600;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero-subtitle {
+                font-size: 16px;
+            }
+
+            .section-header h2 {
+                font-size: 32px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .btn-primary,
+            .btn-secondary {
+                width: 100%;
+            }
+
+            .about-points {
+                grid-template-columns: 1fr;
+            }
+
+            .cta h2 {
+                font-size: 32px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 22px;
+            }
+
+            .nav-buttons {
+                width: 100%;
+                gap: 10px;
+            }
+
+            .nav-btn {
+                padding: 8px 16px;
+                font-size: 12px;
+                flex: 1;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .hero-subtitle {
+                font-size: 14px;
+            }
+
+            .section-header h2 {
+                font-size: 26px;
+            }
+
+            .feature-box {
+                padding: 30px 20px;
+            }
+
+            .btn-primary,
+            .btn-secondary {
+                padding: 12px 30px;
+                font-size: 13px;
+            }
+
+            .cta h2 {
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="header-container">
+            <div class="logo">DiabetesCare</div>
+            <div class="nav-buttons">
+                <a href="/login" class="nav-btn nav-btn-login">Sign In</a>
+                <a href="/login" class="nav-btn nav-btn-signup">Get Started</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-container">
+            <h1>Diabetes Risk Assessment Made Simple</h1>
+            <p class="hero-subtitle">Advanced Machine Learning-Based Prediction System</p>
+            <p class="hero-description">
+                DiabetesCare provides accurate diabetes risk predictions using cutting-edge machine learning algorithms. 
+                Get personalized health recommendations and assessments in seconds.
+            </p>
+            <div class="hero-buttons">
+                <a href="/login" class="btn-primary">Get Started Now</a>
+                <a href="#about" class="btn-secondary">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES SECTION -->
+    <section class="features">
+        <div class="features-container">
+            <div class="section-header">
+                <h2>Powerful Features</h2>
+                <p>Everything you need for comprehensive diabetes risk assessment</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-box">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Instant Results</h3>
+                    <p>Get accurate diabetes risk predictions in real-time with our advanced ML models</p>
+                </div>
+
+                <div class="feature-box">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Personalized Insights</h3>
+                    <p>Receive customized health recommendations tailored to your specific profile</p>
+                </div>
+
+                <div class="feature-box">
+                    <div class="feature-icon">📊</div>
+                    <h3>Health Tracking</h3>
+                    <p>Monitor your health metrics and track progress over time with detailed history</p>
+                </div>
+
+                <div class="feature-box">
+                    <div class="feature-icon">🔬</div>
+                    <h3>Medical Grade</h3>
+                    <p>Science-backed accuracy with proven reliability and peer-reviewed methodology</p>
+                </div>
+
+                <div class="feature-box">
+                    <div class="feature-icon">💡</div>
+                    <h3>Expert Guidance</h3>
+                    <p>Access comprehensive health tips, diet plans, and exercise guides</p>
+                </div>
+
+                <div class="feature-box">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Secure & Private</h3>
+                    <p>Your health data is completely protected with enterprise-grade security</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section class="about" id="about">
+        <div class="about-container">
+            <div class="about-content">
+                <h2>Why Choose DiabetesCare?</h2>
+                <p>
+                    Diabetes is a serious health condition affecting millions worldwide. Early detection and risk assessment 
+                    are crucial for prevention and management. DiabetesCare combines machine learning technology with medical expertise 
+                    to provide accurate, reliable predictions.
+                </p>
+                <p>
+                    Our system analyzes key health metrics and uses advanced algorithms to assess your diabetes risk. 
+                    With personalized recommendations and professional guidance, you can take proactive steps toward better health.
+                </p>
+
+                <div class="about-points">
+                    <div class="point">
+                        <h4>Accurate Predictions</h4>
+                        <p>High-precision ML models trained on medical data</p>
+                    </div>
+                    <div class="point">
+                        <h4>Easy to Use</h4>
+                        <p>Simple interface for quick health assessments</p>
+                    </div>
+                    <div class="point">
+                        <h4>Professional Support</h4>
+                        <p>Medical guidelines and expert recommendations</p>
+                    </div>
+                    <div class="point">
+                        <h4>Comprehensive Tools</h4>
+                        <p>BMI calculator, health tips, and diet guides included</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section class="cta">
+        <div class="cta-container">
+            <h2>Start Your Health Journey Today</h2>
+            <p>Get your personalized diabetes risk assessment in just minutes</p>
+            <a href="/login" class="btn-primary">Get Started Now</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>DiabetesCare</h4>
+                    <p>Advanced diabetes risk assessment system powered by machine learning technology for better health decisions.</p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="#home">Home</a><br>
+                    <a href="#features">Features</a><br>
+                    <a href="#about">About</a><br>
+                    <a href="/login">Sign In</a>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Information</h4>
+                    <p><strong>Disclaimer:</strong> This tool provides informational predictions only and should not replace professional medical advice or diagnosis. Always consult a healthcare professional for accurate medical assessment.</p>
+                </div>
+            </div>
+
+            <div class="footer-divider"></div>
+
+            <div class="footer-bottom">
+                Copyright © 2026 DiabetesCare - Diabetes Risk Assessment System. All rights reserved.
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

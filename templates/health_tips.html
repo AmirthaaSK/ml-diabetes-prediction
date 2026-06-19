@@ -6,31 +6,61 @@
     <title>Health Tips - DiabetesCare</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <style>
+        :root {
+            --primary-red: #E85D5D;
+            --light-red: #F5E6E6;
+            --lighter-red: #FCF1F1;
+            --dark-red: #C43E3E;
+            --white: #FFFFFF;
+            --gray-dark: #333333;
+            --gray-medium: #666666;
+            --gray-light: #F8F8F8;
+        }
+
         body {
-            background: linear-gradient(135deg, #0f3460 0%, #16213e 50%, #1a1a2e 100%);
+            background: linear-gradient(135deg, var(--light-red) 0%, var(--white) 100%);
             min-height: 100vh;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             padding: 20px;
-            color: #ecf0f1;
+            color: var(--gray-dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
 
         .navbar {
-            background: white;
-            padding: 15px 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(90deg, var(--primary-red), var(--dark-red));
+            padding: 18px 0;
+            box-shadow: 0 8px 32px rgba(232, 93, 93, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 3px solid var(--lighter-red);
+            margin-bottom: 30px;
+        }
+
+        .navbar .container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-            gap: 20px;
         }
 
         .navbar-brand {
-            font-size: 24px;
+            font-size: 26px;
             font-weight: 700;
-            color: #667eea;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .navbar-brand::before {
+            content: "🏥";
+            font-size: 28px;
         }
 
         .navbar-user {
@@ -40,70 +70,107 @@
         }
 
         .user-info {
-            color: #555;
-            font-size: 14px;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 13px;
+            font-weight: 500;
         }
 
         .user-info strong {
-            color: #667eea;
+            color: var(--lighter-red);
         }
 
         .logout-btn {
-            background: #ff6b6b;
-            color: white;
-            padding: 8px 20px;
+            background: var(--light-red);
+            color: var(--primary-red);
+            padding: 10px 22px;
             border: none;
             border-radius: 6px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 13px;
+            font-weight: 600;
             transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(232, 93, 93, 0.2);
         }
 
         .logout-btn:hover {
-            background: #ff5252;
+            background: white;
+            color: var(--dark-red);
             transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(232, 93, 93, 0.3);
         }
 
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
+        .nav-menu {
+            background: linear-gradient(90deg, rgba(232, 93, 93, 0.95), rgba(196, 62, 62, 0.95));
+            padding: 12px 0;
+            box-shadow: 0 4px 16px rgba(232, 93, 93, 0.2);
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--lighter-red);
+        }
+
+        .nav-menu .container {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+            overflow-x: auto;
+        }
+
+        .nav-link {
+            padding: 10px 18px;
+            background: rgba(255, 255, 255, 0.15);
+            color: rgba(255, 255, 255, 0.95);
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 12px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            white-space: nowrap;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: white;
+            color: var(--primary-red);
+            border-color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         .page-header {
-            background: white;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
             text-align: center;
+            margin-bottom: 40px;
+            padding: 20px 0;
         }
 
         .page-header h1 {
-            color: #333;
-            margin-bottom: 10px;
-            font-size: 32px;
+            color: var(--primary-red);
+            font-size: 42px;
+            margin-bottom: 12px;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(232, 93, 93, 0.1);
         }
 
         .page-header p {
-            color: #666;
+            color: var(--gray-medium);
             font-size: 16px;
+            font-weight: 400;
         }
 
         .tips-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 25px;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
         }
 
         .tip-card {
             background: white;
             padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            border-left: 5px solid #667eea;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(232, 93, 93, 0.1);
+            border-top: 5px solid var(--primary-red);
             transition: all 0.3s ease;
-            animation: slideUp 0.6s ease-out;
+            animation: slideUp 0.6s ease-out backwards;
         }
 
         @keyframes slideUp {
@@ -118,180 +185,197 @@
         }
 
         .tip-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(232, 93, 93, 0.2);
+        }
+
+        .tip-card .icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+            display: block;
         }
 
         .tip-card h3 {
-            color: #667eea;
+            color: var(--primary-red);
             margin-bottom: 15px;
             font-size: 18px;
+            font-weight: 700;
         }
 
         .tip-card p {
-            color: #666;
-            line-height: 1.7;
+            color: var(--gray-dark);
+            line-height: 1.8;
             font-size: 14px;
         }
 
-        .icon {
-            font-size: 32px;
-            margin-bottom: 15px;
-        }
-
-        .back-btn {
-            background: #667eea;
+        .footer {
+            background: linear-gradient(90deg, var(--primary-red), var(--dark-red));
             color: white;
-            padding: 12px 30px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            transition: all 0.3s ease;
-            margin-top: 20px;
-        }
-
-        .back-btn:hover {
-            background: #764ba2;
-            transform: translateY(-2px);
-        }
-
-        .nav-menu {
-            background: white;
-            padding: 15px 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .nav-link {
-            padding: 10px 20px;
-            background: #f0f4ff;
-            color: #667eea;
-            text-decoration: none;
-            border-radius: 6px;
-            font-weight: 600;
+            text-align: center;
+            padding: 25px;
             font-size: 13px;
-            transition: all 0.3s ease;
+            margin-top: 40px;
+            box-shadow: 0 -4px 12px rgba(232, 93, 93, 0.2);
         }
 
-        .nav-link:hover,
-        .nav-link.active {
-            background: #667eea;
-            color: white;
+        @media (max-width: 768px) {
+            .navbar .container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .navbar-user {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .nav-menu .container {
+                justify-content: center;
+            }
+
+            .page-header h1 {
+                font-size: 32px;
+            }
+
+            .tips-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar-brand {
+                font-size: 22px;
+            }
+
+            .page-header h1 {
+                font-size: 26px;
+            }
+
+            .page-header p {
+                font-size: 14px;
+            }
+
+            .tip-card {
+                padding: 20px;
+            }
+
+            .tip-card h3 {
+                font-size: 16px;
+            }
+
+            .logout-btn {
+                padding: 8px 16px;
+                font-size: 12px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Navbar -->
-        <div class="navbar">
+    <div class="navbar">
+        <div class="container">
             <div class="navbar-brand">DiabetesCare</div>
             <div class="navbar-user">
                 <div class="user-info">Welcome, <strong>{{ username }}</strong></div>
                 <a href="/logout" class="logout-btn">Logout</a>
             </div>
         </div>
+    </div>
 
-        <!-- Navigation Menu -->
-        <div class="nav-menu">
+    <div class="nav-menu">
+        <div class="container">
             <a href="/home" class="nav-link">Dashboard</a>
             <a href="/health-tips" class="nav-link active">Health Tips</a>
             <a href="/diet-recommendations" class="nav-link">Diet Guide</a>
             <a href="/exercise-guide" class="nav-link">Exercise</a>
-            <a href="/risk-assessment" class="nav-link">Risk Assessment</a>
             <a href="/bmi-calculator" class="nav-link">BMI Calculator</a>
             <a href="/about" class="nav-link">About</a>
         </div>
+    </div>
 
-        <!-- Header -->
+    <div class="container">
         <div class="page-header">
             <h1>💡 Health Tips & Prevention</h1>
             <p>Evidence-based guidelines to maintain healthy blood glucose levels</p>
         </div>
 
-        <!-- Tips Grid -->
         <div class="tips-grid">
             <div class="tip-card">
-                <div class="icon">🚶</div>
+                <span class="icon">🚶</span>
                 <h3>Regular Exercise</h3>
                 <p>Aim for at least 150 minutes of moderate-intensity aerobic activity per week. Walking, swimming, cycling, and dancing are excellent choices that help regulate blood sugar naturally.</p>
             </div>
 
             <div class="tip-card">
-                <div class="icon">🥗</div>
+                <span class="icon">🥗</span>
                 <h3>Balanced Nutrition</h3>
-                <p>Focus on whole grains, lean proteins, healthy fats, and plenty of vegetables. Limit processed foods, sugary drinks, and refined carbohydrates that spike blood glucose.</p>
+                <p>Focus on whole grains, lean proteins, healthy fats, and plenty of vegetables. Limit processed foods, sugary drinks, and refined carbohydrates.</p>
             </div>
 
             <div class="tip-card">
-                <div class="icon">⚖️</div>
+                <span class="icon">⚖️</span>
                 <h3>Weight Management</h3>
                 <p>Maintaining a healthy BMI reduces insulin resistance. Even a 5-10% weight loss can significantly improve blood sugar control and reduce diabetes risk.</p>
             </div>
 
             <div class="tip-card">
-                <div class="icon">😴</div>
+                <span class="icon">😴</span>
                 <h3>Adequate Sleep</h3>
                 <p>Get 7-9 hours of quality sleep per night. Poor sleep affects hormones that regulate blood sugar and increases diabetes risk. Maintain a consistent sleep schedule.</p>
             </div>
 
             <div class="tip-card">
-                <div class="icon">💧</div>
+                <span class="icon">💧</span>
                 <h3>Stay Hydrated</h3>
                 <p>Drink plenty of water throughout the day. Water helps kidneys flush out excess sugar through urine. Limit sugary and caffeinated beverages.</p>
             </div>
 
             <div class="tip-card">
-                <div class="icon">🧘</div>
+                <span class="icon">🧘</span>
                 <h3>Stress Management</h3>
                 <p>Practice meditation, yoga, or deep breathing exercises. Chronic stress elevates cortisol, which raises blood glucose levels. Take regular breaks and relax.</p>
             </div>
 
             <div class="tip-card">
-                <div class="icon">🚭</div>
+                <span class="icon">🚭</span>
                 <h3>Avoid Smoking</h3>
                 <p>Smoking increases insulin resistance and diabetes complications. Quitting significantly improves blood sugar control and overall health within weeks.</p>
             </div>
 
             <div class="tip-card">
-                <div class="icon">🏥</div>
+                <span class="icon">🏥</span>
                 <h3>Regular Check-ups</h3>
                 <p>Schedule regular health check-ups with your doctor. Monitor blood sugar, cholesterol, and blood pressure regularly to catch any issues early.</p>
             </div>
 
             <div class="tip-card">
-                <div class="icon">📊</div>
+                <span class="icon">📊</span>
                 <h3>Track Your Metrics</h3>
                 <p>Keep a log of your blood glucose levels, diet, exercise, and stress. Patterns emerge that help you understand what affects your diabetes risk.</p>
             </div>
 
             <div class="tip-card">
-                <div class="icon">👨‍👩‍👧‍👦</div>
+                <span class="icon">👨‍👩‍👧‍👦</span>
                 <h3>Family Support</h3>
-                <p>Engage family members in healthy lifestyle changes. Support groups and family participation increase success rates in diabetes prevention by 2-3 times.</p>
+                <p>Engage family members in healthy lifestyle changes. Support groups and family participation increase success rates in diabetes prevention.</p>
             </div>
 
             <div class="tip-card">
-                <div class="icon">🎯</div>
+                <span class="icon">🎯</span>
                 <h3>Set Goals</h3>
                 <p>Set specific, measurable health goals. Aim for gradual changes rather than drastic ones. Small, consistent improvements compound over time.</p>
             </div>
 
             <div class="tip-card">
-                <div class="icon">📱</div>
+                <span class="icon">📱</span>
                 <h3>Use Health Apps</h3>
                 <p>Utilize health tracking apps to monitor daily activities, diet, and metrics. Technology makes it easier to stay accountable and maintain healthy habits.</p>
             </div>
         </div>
+    </div>
 
-        <div style="text-align: center;">
-            <a href="/home" class="back-btn">← Back to Dashboard</a>
-        </div>
+    <div class="footer">
+        <p>&copy; 2026 DiabetesCare - Diabetes Risk Assessment System</p>
     </div>
 </body>
 </html>

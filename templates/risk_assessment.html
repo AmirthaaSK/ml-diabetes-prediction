@@ -6,31 +6,61 @@
     <title>Risk Assessment - DiabetesCare</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <style>
+        :root {
+            --primary-red: #E85D5D;
+            --light-red: #F5E6E6;
+            --lighter-red: #FCF1F1;
+            --dark-red: #C43E3E;
+            --white: #FFFFFF;
+            --gray-dark: #333333;
+            --gray-medium: #666666;
+            --gray-light: #F8F8F8;
+        }
+
         body {
-            background: linear-gradient(135deg, #0f3460 0%, #16213e 50%, #1a1a2e 100%);
+            background: linear-gradient(135deg, var(--light-red) 0%, var(--white) 100%);
             min-height: 100vh;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             padding: 20px;
-            color: #ecf0f1;
+            color: var(--gray-dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
 
         .navbar {
-            background: white;
-            padding: 15px 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(90deg, var(--primary-red), var(--dark-red));
+            padding: 18px 0;
+            box-shadow: 0 8px 32px rgba(232, 93, 93, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 3px solid var(--lighter-red);
+            margin-bottom: 30px;
+        }
+
+        .navbar .container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-            gap: 20px;
         }
 
         .navbar-brand {
-            font-size: 24px;
+            font-size: 26px;
             font-weight: 700;
-            color: #667eea;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .navbar-brand::before {
+            content: "🏥";
+            font-size: 28px;
         }
 
         .navbar-user {
@@ -40,223 +70,281 @@
         }
 
         .user-info {
-            color: #555;
-            font-size: 14px;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 13px;
+            font-weight: 500;
         }
 
         .user-info strong {
-            color: #667eea;
+            color: var(--lighter-red);
         }
 
         .logout-btn {
-            background: #ff6b6b;
-            color: white;
-            padding: 8px 20px;
+            background: var(--light-red);
+            color: var(--primary-red);
+            padding: 10px 22px;
             border: none;
             border-radius: 6px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 13px;
+            font-weight: 600;
             transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(232, 93, 93, 0.2);
         }
 
         .logout-btn:hover {
-            background: #ff5252;
-            transform: translateY(-2px);
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .page-header {
             background: white;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
-            text-align: center;
-        }
-
-        .page-header h1 {
-            color: #333;
-            margin-bottom: 10px;
-            font-size: 32px;
-        }
-
-        .page-header p {
-            color: #666;
-            font-size: 16px;
+            color: var(--dark-red);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(232, 93, 93, 0.3);
         }
 
         .nav-menu {
-            background: white;
-            padding: 15px 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(90deg, rgba(232, 93, 93, 0.95), rgba(196, 62, 62, 0.95));
+            padding: 12px 0;
+            box-shadow: 0 4px 16px rgba(232, 93, 93, 0.2);
             margin-bottom: 30px;
+            border-bottom: 2px solid var(--lighter-red);
+        }
+
+        .nav-menu .container {
             display: flex;
-            gap: 15px;
+            gap: 5px;
             flex-wrap: wrap;
+            overflow-x: auto;
+            padding: 0 20px;
         }
 
         .nav-link {
-            padding: 10px 20px;
-            background: #f0f4ff;
-            color: #667eea;
+            padding: 10px 18px;
+            background: rgba(255, 255, 255, 0.15);
+            color: rgba(255, 255, 255, 0.95);
             text-decoration: none;
             border-radius: 6px;
             font-weight: 600;
-            font-size: 13px;
+            font-size: 12px;
             transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            white-space: nowrap;
         }
 
         .nav-link:hover,
         .nav-link.active {
-            background: #667eea;
-            color: white;
+            background: white;
+            color: var(--primary-red);
+            border-color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px 0;
+        }
+
+        .page-header h1 {
+            color: var(--primary-red);
+            font-size: 42px;
+            margin-bottom: 12px;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(232, 93, 93, 0.1);
+        }
+
+        .page-header p {
+            color: var(--gray-medium);
+            font-size: 16px;
         }
 
         .risk-section {
             background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            margin-bottom: 25px;
-            border-left: 5px solid #667eea;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(232, 93, 93, 0.1);
+            margin-bottom: 30px;
+            border: 2px solid var(--light-red);
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .risk-section h2 {
-            color: #667eea;
-            margin-bottom: 20px;
-            font-size: 22px;
+            color: var(--primary-red);
+            margin-bottom: 30px;
+            font-size: 28px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .risk-factor {
-            background: #f9faff;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            border-left: 4px solid #667eea;
+            background: linear-gradient(135deg, var(--lighter-red), var(--light-red));
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 5px solid var(--primary-red);
+            transition: all 0.3s ease;
+        }
+
+        .risk-factor:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(232, 93, 93, 0.15);
         }
 
         .risk-factor h4 {
-            color: #333;
-            margin-bottom: 10px;
-            font-size: 15px;
+            color: var(--gray-dark);
+            margin-bottom: 15px;
+            font-size: 16px;
+            font-weight: 700;
         }
 
         .risk-factor p {
-            color: #666;
+            color: var(--gray-dark);
             font-size: 14px;
-            line-height: 1.7;
+            line-height: 1.8;
+            margin: 8px 0;
         }
 
         .risk-factor.high {
-            border-left-color: #ff6b6b;
-            background: #fff5f5;
+            border-left-color: #C43E3E;
+            background: linear-gradient(135deg, rgba(232, 93, 93, 0.15), rgba(196, 62, 62, 0.1));
         }
 
         .risk-factor.high h4 {
-            color: #ff6b6b;
+            color: var(--dark-red);
         }
 
         .risk-factor.medium {
-            border-left-color: #ff9500;
-            background: #fff8f0;
+            border-left-color: #FF9500;
+            background: linear-gradient(135deg, rgba(255, 149, 0, 0.1), rgba(255, 149, 0, 0.05));
         }
 
         .risk-factor.medium h4 {
-            color: #ff9500;
+            color: #FF9500;
         }
 
         .risk-factor.low {
-            border-left-color: #51cf66;
-            background: #f0fff4;
+            border-left-color: #51CF66;
+            background: linear-gradient(135deg, rgba(81, 207, 102, 0.1), rgba(81, 207, 102, 0.05));
         }
 
         .risk-factor.low h4 {
-            color: #51cf66;
+            color: #51CF66;
         }
 
         .metric-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 15px;
+            margin-top: 20px;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(232, 93, 93, 0.1);
         }
 
         .metric-table th,
         .metric-table td {
-            padding: 12px;
+            padding: 16px;
             text-align: left;
-            border-bottom: 1px solid #e0e0e0;
-            font-size: 13px;
+            border-bottom: 1px solid var(--light-red);
+            font-size: 14px;
         }
 
         .metric-table th {
-            background: #f0f4ff;
-            font-weight: 600;
-            color: #333;
+            background: linear-gradient(90deg, var(--primary-red), var(--dark-red));
+            font-weight: 700;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .metric-table tr:hover {
-            background: #f9faff;
+            background: var(--lighter-red);
         }
 
         .metric-value {
-            font-weight: 600;
-            color: #667eea;
+            font-weight: 700;
+            color: var(--primary-red);
         }
 
         .complication-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-            margin-top: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
         }
 
         .complication-card {
-            background: #fff5f5;
-            border-left: 4px solid #ff6b6b;
-            padding: 15px;
-            border-radius: 6px;
+            background: linear-gradient(135deg, rgba(232, 93, 93, 0.15), rgba(196, 62, 62, 0.1));
+            border-left: 5px solid var(--primary-red);
+            padding: 20px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .complication-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(232, 93, 93, 0.15);
         }
 
         .complication-card h5 {
-            color: #ff6b6b;
-            margin-bottom: 8px;
-            font-size: 14px;
+            color: var(--dark-red);
+            margin-bottom: 12px;
+            font-size: 15px;
+            font-weight: 700;
         }
 
         .complication-card p {
-            color: #666;
+            color: var(--gray-dark);
             font-size: 13px;
-            line-height: 1.6;
+            line-height: 1.7;
         }
 
         .prevention-tips {
-            background: #f0fff4;
-            border-left: 4px solid #51cf66;
-            padding: 20px;
-            border-radius: 8px;
-            margin-top: 25px;
+            background: linear-gradient(135deg, rgba(81, 207, 102, 0.1), rgba(81, 207, 102, 0.05));
+            border-left: 5px solid #51CF66;
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 30px;
+            border: 2px solid #D4EDDA;
         }
 
         .prevention-tips h3 {
-            color: #51cf66;
-            margin-bottom: 15px;
-            font-size: 18px;
+            color: #51CF66;
+            margin-bottom: 20px;
+            font-size: 20px;
+            font-weight: 700;
+            text-transform: uppercase;
         }
 
         .prevention-tips ul {
             margin-left: 20px;
-            color: #666;
+            color: var(--gray-dark);
             font-size: 14px;
-            line-height: 1.8;
+            line-height: 1.9;
+        }
+
+        .prevention-tips li {
+            margin-bottom: 12px;
+        }
+
+        .prevention-tips strong {
+            color: #51CF66;
+            font-weight: 700;
         }
 
         .back-btn {
-            background: #667eea;
+            background: linear-gradient(135deg, var(--primary-red), var(--dark-red));
             color: white;
             padding: 12px 30px;
             border: none;
@@ -265,28 +353,98 @@
             text-decoration: none;
             display: inline-block;
             transition: all 0.3s ease;
-            margin-top: 20px;
+            margin-top: 30px;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(232, 93, 93, 0.2);
         }
 
         .back-btn:hover {
-            background: #764ba2;
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(232, 93, 93, 0.4);
+        }
+
+        .footer {
+            background: linear-gradient(90deg, var(--primary-red), var(--dark-red));
+            color: white;
+            text-align: center;
+            padding: 25px;
+            font-size: 13px;
+            margin-top: 40px;
+            box-shadow: 0 -4px 12px rgba(232, 93, 93, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .navbar .container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .navbar-user {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .page-header h1 {
+                font-size: 32px;
+            }
+
+            .risk-section {
+                padding: 25px 20px;
+            }
+
+            .metric-table th,
+            .metric-table td {
+                padding: 12px;
+                font-size: 12px;
+            }
+
+            .complication-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar-brand {
+                font-size: 22px;
+            }
+
+            .page-header h1 {
+                font-size: 26px;
+            }
+
+            .page-header p {
+                font-size: 14px;
+            }
+
+            .risk-section {
+                padding: 20px 15px;
+            }
+
+            .risk-section h2 {
+                font-size: 22px;
+            }
+
+            .logout-btn {
+                padding: 8px 16px;
+                font-size: 12px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Navbar -->
-        <div class="navbar">
+    <div class="navbar">
+        <div class="container">
             <div class="navbar-brand">DiabetesCare</div>
             <div class="navbar-user">
                 <div class="user-info">Welcome, <strong>{{ username }}</strong></div>
                 <a href="/logout" class="logout-btn">Logout</a>
             </div>
         </div>
+    </div>
 
-        <!-- Navigation Menu -->
-        <div class="nav-menu">
+    <div class="nav-menu">
+        <div class="container">
             <a href="/home" class="nav-link">Dashboard</a>
             <a href="/health-tips" class="nav-link">Health Tips</a>
             <a href="/diet-recommendations" class="nav-link">Diet Guide</a>
@@ -295,14 +453,14 @@
             <a href="/bmi-calculator" class="nav-link">BMI Calculator</a>
             <a href="/about" class="nav-link">About</a>
         </div>
+    </div>
 
-        <!-- Header -->
+    <div class="container">
         <div class="page-header">
             <h1>⚠️ Diabetes Risk Assessment</h1>
             <p>Understanding risk factors and early warning signs</p>
         </div>
 
-        <!-- Key Risk Factors -->
         <div class="risk-section">
             <h2>🎯 Key Risk Factors for Diabetes</h2>
 
@@ -356,7 +514,6 @@
             </div>
         </div>
 
-        <!-- Risk Metrics Table -->
         <div class="risk-section">
             <h2>📊 Diabetes Risk Prediction Metrics</h2>
             <table class="metric-table">
@@ -370,31 +527,31 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td><strong style="color: black;">Glucose (mg/dL)</strong></td>
+                        <td><strong>Glucose (mg/dL)</strong></td>
                         <td class="metric-value">70-100</td>
                         <td class="metric-value">100-125</td>
                         <td class="metric-value">&gt;125</td>
                     </tr>
                     <tr>
-                        <td><strong style="color: black;">BMI</strong></td>
+                        <td><strong>BMI</strong></td>
                         <td class="metric-value">18.5-24.9</td>
                         <td class="metric-value">25-29.9</td>
                         <td class="metric-value">&gt;30</td>
                     </tr>
                     <tr>
-                        <td><strong style="color: black;">Blood Pressure</strong></td>
+                        <td><strong>Blood Pressure</strong></td>
                         <td class="metric-value">&lt;120/80</td>
                         <td class="metric-value">120-139/80-89</td>
                         <td class="metric-value">&gt;140/90</td>
                     </tr>
                     <tr>
-                        <td><strong style="color: black;">Insulin (mu U/ml)</strong></td>
+                        <td><strong>Insulin (mu U/ml)</strong></td>
                         <td class="metric-value">2-12</td>
                         <td class="metric-value">12-25</td>
                         <td class="metric-value">&gt;25</td>
                     </tr>
                     <tr>
-                        <td><strong style="color: black;">Age (years)</strong></td>
+                        <td><strong>Age (years)</strong></td>
                         <td class="metric-value">&lt;45</td>
                         <td class="metric-value">45-60</td>
                         <td class="metric-value">&gt;60</td>
@@ -403,38 +560,36 @@
             </table>
         </div>
 
-        <!-- Potential Complications -->
         <div class="risk-section">
             <h2>⚠️ Potential Diabetes Complications</h2>
             <div class="complication-grid">
                 <div class="complication-card">
-                    <h5>Heart Disease & Stroke</h5>
+                    <h5>❤️ Heart Disease & Stroke</h5>
                     <p>High blood sugar damages blood vessels. Diabetics are 2-4 times more likely to have heart disease.</p>
                 </div>
                 <div class="complication-card">
-                    <h5>Kidney Damage</h5>
+                    <h5>🫘 Kidney Damage</h5>
                     <p>High blood sugar can damage kidney filters, potentially leading to kidney failure requiring dialysis.</p>
                 </div>
                 <div class="complication-card">
-                    <h5>Eye Damage (Retinopathy)</h5>
+                    <h5>👁️ Eye Damage (Retinopathy)</h5>
                     <p>Diabetes is a leading cause of blindness. Regular eye exams are essential for early detection.</p>
                 </div>
                 <div class="complication-card">
-                    <h5>Nerve Damage (Neuropathy)</h5>
+                    <h5>⚡ Nerve Damage (Neuropathy)</h5>
                     <p>High blood sugar damages nerves, causing pain, numbness, or loss of feeling, especially in feet.</p>
                 </div>
                 <div class="complication-card">
-                    <h5>Foot Problems</h5>
+                    <h5>🦶 Foot Problems</h5>
                     <p>Nerve damage combined with poor circulation can lead to infections and amputations if untreated.</p>
                 </div>
                 <div class="complication-card">
-                    <h5>Dental Disease</h5>
+                    <h5>🦷 Dental Disease</h5>
                     <p>Diabetes increases infection risk and gum disease. Maintain excellent oral hygiene and regular check-ups.</p>
                 </div>
             </div>
         </div>
 
-        <!-- Prevention Tips -->
         <div class="prevention-tips">
             <h3>✅ How to Reduce Your Risk</h3>
             <ul>
@@ -454,6 +609,10 @@
         <div style="text-align: center;">
             <a href="/home" class="back-btn">← Back to Dashboard</a>
         </div>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2026 DiabetesCare - Diabetes Risk Assessment System</p>
     </div>
 </body>
 </html>

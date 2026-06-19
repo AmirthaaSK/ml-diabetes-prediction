@@ -11,478 +11,476 @@
             padding: 0;
             box-sizing: border-box;
         }
-        body{
-            font-family:'Segoe UI',sans-serif;
-            background:linear-gradient(135deg,#0f172a,#1e293b);
-            min-height:100vh;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            padding:20px;
+
+        :root {
+            --primary-red: #E85D5D;
+            --dark-red: #C43E3E;
+            --white: #FFFFFF;
+            --gray-dark: #1a1a1a;
+            --gray-medium: #666666;
+            --gray-light: #f5f5f5;
+            --border-color: #e0e0e0;
         }
-        .overlay-content{
-            position:relative;
-            color:white;
-            padding:70px;
-            top:50%;
-            transform:translateY(-50%);
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: var(--gray-light);
+            color: var(--gray-dark);
+            line-height: 1.6;
         }
-        .auth-card{
-            width:95vw;
-            max-width:1400px;
-            height:92vh;
-            background:#fff;
-            border-radius:30px;
-            overflow:hidden;
-            display:flex;
-            box-shadow:0 20px 50px rgba(0,0,0,.2);
+
+        .auth-container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
         }
-        .left-panel{
-            width:55%;
-            background:linear-gradient(135deg,#ef4444,#c0392b);
-            color:white;
-            padding:70px;
-            display:flex;
-            flex-direction:column;
-            justify-content:center;
-        }
-        .right-panel{
-            width:40%;
-            background:#ffffff;
-            padding:70px 60px;
-            display:flex;
-            flex-direction:column;
-            justify-content:center;
+
+        .auth-card {
+            width: 100%;
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            animation: slideUp 0.8s ease-out;
+            min-height: 600px;
+            margin: 40px 20px;
         }
 
         @keyframes slideUp {
             from {
                 opacity: 0;
-                transform: translateY(50px);
+                transform: translateY(30px);
             }
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-        .auth-header{
-            width:55%;
-            background:linear-gradient(135deg,#ef4444,#c0392b);
-            color:white;
-            display:flex;
-            flex-direction:column;
-            justify-content:center;
-            align-items:center;
-            text-align:center;
-            padding:50px;
-            position:relative;
+
+        /* LEFT PANEL */
+        .auth-header {
+            width: 55%;
+            background: linear-gradient(135deg, var(--primary-red) 0%, var(--dark-red) 100%);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 60px 50px;
+            position: relative;
+            overflow: hidden;
         }
-        .auth-header h1{
-            font-size:58px;
-            font-weight:800;
-            margin-bottom:15px;
+
+        .auth-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 500px;
+            height: 500px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
         }
-        .auth-header p{
-            font-size:20px;
-            margin-bottom:40px;
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
         }
-        .diabetes-image{
-            width:85%;
-            max-width:500px;
-            border-radius:25px;
-            object-fit:cover;
-            box-shadow:0 15px 40px rgba(0,0,0,.3);
-        }       
-        .tabs{
-            display:flex;
-            justify-content:center;
-            gap:40px;
-            margin-bottom:40px;
-            border-bottom:1px solid #e5e7eb;
-            padding-bottom:20px;
+
+        .auth-header-content {
+            position: relative;
+            z-index: 2;
         }
-        .tab-btn{
-            background:none;
-            border:none;
-            cursor:pointer;
-            font-size:17px;
-            font-weight:700;
-            color:#64748b;
-            position:relative;
+
+        .auth-header h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
         }
-        .tab-btn.active{
-            color:#e74c3c;
+
+        .auth-header p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            font-weight: 500;
+            opacity: 0.95;
         }
-        .tab-btn.active::after{
-            content:'';
-            position:absolute;
-            left:0;
-            bottom:-20px;
-            width:100%;
-            height:3px;
-            background:#e74c3c;
+
+        .auth-features {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px 30px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            margin-top: 20px;
+            font-size: 14px;
+            line-height: 1.8;
+            font-weight: 500;
         }
-        .auth-content{
-            width:45%;
-            background:white;
-            padding:50px;
-            display:flex;
-            flex-direction:column;
-            justify-content:center;
+
+        /* RIGHT PANEL */
+        .auth-content {
+            width: 45%;
+            background: var(--white);
+            padding: 60px 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
+
+        /* TABS */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin-bottom: 40px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--gray-medium);
+            position: relative;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .tab-btn:hover {
+            color: var(--primary-red);
+        }
+
+        .tab-btn.active {
+            color: var(--primary-red);
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -20px;
+            width: 100%;
+            height: 3px;
+            background: var(--primary-red);
+            border-radius: 2px;
+        }
+
+        /* FORM GROUPS */
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .form-group label {
             display: block;
             margin-bottom: 10px;
-            color: #2c3e50;
+            color: var(--gray-dark);
             font-weight: 700;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+        }
+
+        .form-group input {
+            width: 100%;
+            height: 50px;
+            padding: 0 16px;
+            background: var(--gray-light);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 14px;
+            color: var(--gray-dark);
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-family: inherit;
+        }
+
+        .form-group input::placeholder {
+            color: #999;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-red);
+            background: var(--white);
+            box-shadow: 0 0 0 3px rgba(232, 93, 93, 0.1);
+        }
+
+        .password-hint {
+            font-size: 12px;
+            color: var(--gray-medium);
+            margin-top: 8px;
+            font-weight: 500;
+        }
+
+        /* MESSAGES */
+        .error-message {
+            background: #fff3cd;
+            color: #856404;
+            padding: 14px 16px;
+            border-radius: 8px;
+            margin-bottom: 25px;
             font-size: 13px;
+            border-left: 4px solid var(--primary-red);
+            font-weight: 600;
+            border: 1px solid var(--primary-red);
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 14px 16px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            font-size: 13px;
+            border-left: 4px solid #27ae60;
+            font-weight: 600;
+            border: 1px solid #27ae60;
+        }
+
+        /* SUBMIT BUTTON */
+        .submit-btn {
+            width: 100%;
+            padding: 14px 0;
+            background: linear-gradient(135deg, var(--primary-red), var(--dark-red));
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+            box-shadow: 0 4px 12px rgba(232, 93, 93, 0.25);
             text-transform: uppercase;
             letter-spacing: 0.8px;
         }
 
-        .form-group input{
-            height:58px;
-            padding:0 18px;
-            background:#f8fafc;
-            border:1px solid #d1d5db;
-            border-radius:14px;
-            font-size:15px;
-        }
-        .form-group input::placeholder {
-            color: #b0bac9;
-        }
-        .form-group input:focus {
-            outline: none;
-            border-color: #2563eb;
-            background: #ffffff; /* Keeps background solid white */
-            color: #1e293b;      /* Dark text while typing */
-            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
-            transform: none;     /* Prevents jumping */
-        }
-        .password-hint {
-            font-size: 12px;
-            color: #95a5a6;
-            margin-top: 6px;
-            font-weight: 500;
-        }
-
-        .error-message {
-            background: #fadbd8;
-            color: #c0392b;
-            padding: 14px 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            font-size: 13px;
-            border-left: 4px solid #e74c3c;
-            display: flex;
-            align-items: center;
-        }
-
-        .success-message {
-            background: #d5f4e6;
-            color: #27ae60;
-            padding: 14px 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            font-size: 13px;
-            border-left: 4px solid #27ae60;
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 15px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-            margin-top: 8px;
-            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.3);
-            position: relative;
-            overflow: hidden;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .submit-btn::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-
         .submit-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(231, 76, 60, 0.5);
-        }
-
-        .submit-btn:hover::before {
-            width: 300px;
-            height: 300px;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(232, 93, 93, 0.35);
         }
 
         .submit-btn:active {
-            transform: translateY(-1px);
+            transform: translateY(0);
         }
 
+        /* FORM CONTENT */
         .form-content {
             display: none;
         }
 
         .form-content.active {
             display: block;
-            animation: fadeIn 0.3s ease-out;
+            animation: fadeInForm 0.4s ease-out;
         }
 
-        @keyframes fadeIn {
+        @keyframes fadeInForm {
             from {
                 opacity: 0;
+                transform: translateY(10px);
             }
             to {
                 opacity: 1;
+                transform: translateY(0);
             }
         }
 
+        /* DEMO INFO */
         .demo-info {
-            background: #ecf0f1;
-            padding: 15px;
+            background: var(--gray-light);
+            padding: 20px;
             border-radius: 8px;
-            margin-top: 20px;
-            font-size: 12px;
-            color: #34495e;
-            border-left: 4px solid #3498db;
+            margin-top: 25px;
+            font-size: 13px;
+            color: var(--gray-dark);
+            border-left: 4px solid var(--primary-red);
+            border: 1px solid var(--border-color);
         }
 
         .demo-info strong {
             display: block;
-            color: #2c3e50;
-            margin-bottom: 8px;
+            color: var(--gray-dark);
+            margin-bottom: 12px;
+            font-weight: 700;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .demo-info p {
-            margin: 4px 0;
+            margin: 8px 0;
+            color: var(--gray-dark);
+            font-weight: 600;
         }
 
-        @media (max-width: 500px) {
-            .auth-card {
-                border-radius: 15px;
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .auth-header {
+                width: 50%;
+                padding: 40px 30px;
             }
+            .auth-content {
+                width: 50%;
+                padding: 40px 30px;
+            }
+        }
 
+        @media (max-width: 768px) {
+            .auth-card {
+                flex-direction: column;
+                min-height: auto;
+            }
+            .auth-header {
+                width: 100%;
+                padding: 40px 30px;
+                min-height: 250px;
+            }
+            .auth-content {
+                width: 100%;
+                padding: 40px 30px;
+            }
+            .auth-header h1 {
+                font-size: 36px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .auth-card {
+                border-radius: 8px;
+                margin: 20px 10px;
+            }
             .auth-header {
                 padding: 30px 20px;
             }
-
+            .auth-content {
+                padding: 30px 20px;
+            }
             .auth-header h1 {
                 font-size: 28px;
             }
-
-            .auth-content {
-                padding: 30px 20px;
+            .tabs {
+                gap: 30px;
+            }
+            .submit-btn {
+                font-size: 13px;
             }
         }
     </style>
 </head>
 <body>
-<div class="auth-container">
-    <div class="auth-card">
-
-        <!-- LEFT PANEL -->
-        <div class="auth-header">
-
-            <h1>DiabetesCare</h1>
-            <p>Diabetes Risk Assessment System</p>
-
-            <img src="{{ url_for('static', filename='diabetes.jpg') }}"
-                 class="diabetes-image"
-                 alt="Diabetes Image">
-
-        </div>
-
-        <!-- RIGHT PANEL -->
-        <div class="auth-content">
-
-            <!-- Tabs -->
-            <div class="tabs">
-                <button class="tab-btn active"
-                        onclick="switchTab('login')">
-                    Sign In
-                </button>
-
-                <button class="tab-btn"
-                        onclick="switchTab('register')">
-                    Create Account
-                </button>
+    <div class="auth-container">
+        <div class="auth-card">
+            <!-- LEFT PANEL -->
+            <div class="auth-header">
+                <div class="auth-header-content">
+                    <h1>DiabetesCare</h1>
+                    <p>Diabetes Risk Assessment System</p>
+                    <div class="auth-features">
+                        Advanced machine learning predictions for diabetes risk assessment
+                    </div>
+                </div>
             </div>
 
-            <!-- LOGIN -->
-            <div id="login" class="form-content active">
-
-                {% if error and not register_mode %}
-                <div class="error-message">
-                    {{ error }}
-                </div>
-                {% endif %}
-
-                <form method="POST" action="/login">
-
-                    <div class="form-group">
-                        <label for="login-username">Username</label>
-
-                        <input
-                            type="text"
-                            id="login-username"
-                            name="username"
-                            placeholder="Enter your username"
-                            required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="login-password">Password</label>
-
-                        <input
-                            type="password"
-                            id="login-password"
-                            name="password"
-                            placeholder="Enter your password"
-                            required>
-                    </div>
-
-                    <button type="submit"
-                            class="submit-btn">
-                        Sign In
-                    </button>
-
-                </form>
-
-                <div class="demo-info">
-                    <strong>Sample Login</strong>
-
-                    <p>Username :
-                        <b>demo_user</b>
-                    </p>
-
-                    <p>Password :
-                        <b>abc123</b>
-                    </p>
+            <!-- RIGHT PANEL -->
+            <div class="auth-content">
+                <!-- TABS -->
+                <div class="tabs">
+                    <button class="tab-btn active" onclick="switchTab('login', event)">Sign In</button>
+                    <button class="tab-btn" onclick="switchTab('register', event)">Create Account</button>
                 </div>
 
-            </div>
+                <!-- LOGIN FORM -->
+                <div id="login" class="form-content active">
+                    {% if error and not register_mode %}
+                    <div class="error-message">{{ error }}</div>
+                    {% endif %}
 
-            <!-- REGISTER -->
-            <div id="register" class="form-content">
-
-                {% if error and register_mode %}
-                <div class="error-message">
-                    {{ error }}
-                </div>
-                {% endif %}
-
-                {% if success %}
-                <div class="success-message">
-                    {{ success }}
-                </div>
-                {% endif %}
-
-                <form method="POST" action="/register">
-
-                    <div class="form-group">
-
-                        <label for="register-username">
-                            Username
-                        </label>
-
-                        <input
-                            type="text"
-                            id="register-username"
-                            name="username"
-                            placeholder="Choose a username"
-                            required
-                            minlength="3"
-                            maxlength="20">
-
-                        <div class="password-hint">
-                            3-20 characters
+                    <form method="POST" action="/login">
+                        <div class="form-group">
+                            <label for="login-username">Username</label>
+                            <input type="text" id="login-username" name="username" 
+                                   placeholder="Enter your username" required autocomplete="username">
                         </div>
 
-                    </div>
-
-                    <div class="form-group">
-
-                        <label for="register-password">
-                            Password
-                        </label>
-
-                        <input
-                            type="password"
-                            id="register-password"
-                            name="password"
-                            placeholder="Create a password"
-                            required
-                            minlength="6">
-
-                        <div class="password-hint">
-                            At least 6 characters
+                        <div class="form-group">
+                            <label for="login-password">Password</label>
+                            <input type="password" id="login-password" name="password" 
+                                   placeholder="Enter your password" required autocomplete="current-password">
                         </div>
 
+                        <button type="submit" class="submit-btn">Sign In</button>
+                    </form>
+
+                    <div class="demo-info">
+                        <strong>Demo Credentials</strong>
+                        <p>Username: demo_user</p>
+                        <p>Password: abc123</p>
                     </div>
+                </div>
 
-                    <div class="form-group">
+                <!-- REGISTER FORM -->
+                <div id="register" class="form-content">
+                    {% if error and register_mode %}
+                    <div class="error-message">{{ error }}</div>
+                    {% endif %}
 
-                        <label for="register-confirm">
-                            Confirm Password
-                        </label>
+                    {% if success %}
+                    <div class="success-message">{{ success }}</div>
+                    {% endif %}
 
-                        <input
-                            type="password"
-                            id="register-confirm"
-                            name="confirm_password"
-                            placeholder="Confirm your password"
-                            required
-                            minlength="6">
+                    <form method="POST" action="/register">
+                        <div class="form-group">
+                            <label for="register-username">Username</label>
+                            <input type="text" id="register-username" name="username" 
+                                   placeholder="Choose a username" required minlength="3" maxlength="20">
+                            <div class="password-hint">3-20 characters, letters and numbers only</div>
+                        </div>
 
-                    </div>
+                        <div class="form-group">
+                            <label for="register-password">Password</label>
+                            <input type="password" id="register-password" name="password" 
+                                   placeholder="Create a strong password" required minlength="6">
+                            <div class="password-hint">At least 6 characters for security</div>
+                        </div>
 
-                    <button type="submit"
-                            class="submit-btn">
-                        Create Account
-                    </button>
+                        <div class="form-group">
+                            <label for="register-confirm">Confirm Password</label>
+                            <input type="password" id="register-confirm" name="confirm_password" 
+                                   placeholder="Confirm your password" required minlength="6">
+                        </div>
 
-                </form>
-
+                        <button type="submit" class="submit-btn">Create Account</button>
+                    </form>
+                </div>
             </div>
-
         </div>
-
     </div>
-</div>
 
-<script>
-function switchTab(tab) {
+    <script>
+        function switchTab(tab, event) {
+            event.preventDefault();
+            document.getElementById('login').classList.remove('active');
+            document.getElementById('register').classList.remove('active');
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(tab).classList.add('active');
+            event.target.classList.add('active');
+        }
 
-    document.getElementById('login').classList.remove('active');
-    document.getElementById('register').classList.remove('active');
-
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.classList.remove('active');
-    });
-
-    document.getElementById(tab).classList.add('active');
-    event.target.classList.add('active');
-}
-</script>
-
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    form.submit();
+                }
+            });
+        });
+    </script>
 </body>
-```
+</html>

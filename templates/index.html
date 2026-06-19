@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diabetes Prediction - DiabetesCare</title>
+    <title>Dashboard - DiabetesCare</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <style>
         * {
@@ -12,160 +12,171 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --primary-red: #E85D5D;
+            --dark-red: #C43E3E;
+            --soft-red-bg: #FDF8F7;
+            --soft-red-light: #FCF3F0;
+            --soft-red-lighter: #FEF9F8;
+            --white: #FFFFFF;
+            --gray-dark: #1a1a1a;
+            --gray-medium: #666666;
+            --gray-light: #f5f5f5;
+            --gray-lighter: #fafafa;
+            --border-color: #e0e0e0;
+            --soft-border: #F5E5E1;
+            --success-green: #27ae60;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
         body {
-            background: linear-gradient(135deg, #0f3460 0%, #16213e 50%, #1a1a2e 100%);
-            min-height: 100vh;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            padding: 20px;
-            color: #ecf0f1;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: var(--soft-red-bg);
+            color: var(--gray-dark);
+            line-height: 1.6;
         }
 
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
+        /* NAVBAR */
         .navbar {
-            background: linear-gradient(135deg, rgba(44, 62, 80, 0.9), rgba(26, 26, 46, 0.95));
-            backdrop-filter: blur(10px);
-            padding: 18px 30px;
-            border-radius: 12px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            background: var(--white);
+            padding: 16px 0;
+            box-shadow: 0 2px 8px rgba(232, 93, 93, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--soft-border);
+        }
+
+        .navbar .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
-            animation: slideDown 0.6s ease-out;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
 
         .navbar-brand {
             font-size: 26px;
             font-weight: 700;
-            color: #ecf0f1;
+            color: var(--primary-red);
             letter-spacing: -0.5px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand:hover {
+            opacity: 0.9;
         }
 
         .navbar-user {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 25px;
         }
 
         .user-info {
-            color: #bdc3c7;
+            color: var(--gray-dark);
             font-size: 13px;
-            font-weight: 500;
+            font-weight: 600;
         }
 
         .user-info strong {
-            color: #f39c12;
+            color: var(--primary-red);
+            font-weight: 700;
         }
 
         .logout-btn {
-            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-            color: white;
-            padding: 10px 22px;
+            background: var(--primary-red);
+            color: var(--white);
+            padding: 10px 24px;
             border: none;
             border-radius: 6px;
             cursor: pointer;
             font-size: 13px;
-            font-weight: 600;
+            font-weight: 700;
             transition: all 0.3s ease;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 8px rgba(232, 93, 93, 0.15);
         }
 
         .logout-btn:hover {
-            background: linear-gradient(135deg, #c0392b 0%, #a93226 100%);
+            background: var(--dark-red);
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.3);
+            box-shadow: 0 4px 12px rgba(232, 93, 93, 0.25);
         }
 
+        /* NAVIGATION MENU */
         .nav-menu {
-            background: linear-gradient(135deg, rgba(52, 73, 94, 0.8), rgba(36, 47, 61, 0.9));
-            padding: 12px 20px;
-            border-radius: 12px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-            margin-bottom: 30px;
+            background: var(--white);
+            padding: 12px 0;
+            box-shadow: 0 1px 3px rgba(232, 93, 93, 0.05);
+            border-bottom: 1px solid var(--soft-border);
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .nav-menu .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
             display: flex;
-            gap: 10px;
+            gap: 8px;
             flex-wrap: wrap;
-            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .nav-link {
             padding: 10px 18px;
-            background: rgba(255, 255, 255, 0.05);
-            color: #bdc3c7;
+            background: transparent;
+            color: var(--gray-medium);
             text-decoration: none;
             border-radius: 6px;
             font-weight: 600;
             font-size: 12px;
             transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid transparent;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
         }
 
-        .nav-link:hover,
+        .nav-link:hover {
+            background: var(--soft-red-light);
+            color: var(--primary-red);
+            border-color: var(--soft-border);
+        }
+
         .nav-link.active {
-            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-            color: white;
-            border-color: #e74c3c;
-            transform: translateY(-2px);
+            background: var(--primary-red);
+            color: var(--white);
+            border-color: var(--primary-red);
+            font-weight: 700;
+            box-shadow: 0 2px 6px rgba(232, 93, 93, 0.2);
         }
 
+        /* CONTAINER */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* HERO HEADER */
         .header {
             text-align: center;
-            margin-bottom: 40px;
-            animation: fadeIn 0.8s ease-out 0.2s backwards;
+            margin: 50px 0 45px 0;
+            animation: fadeIn 0.6s ease-out;
         }
 
         @keyframes fadeIn {
             from {
                 opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        .header h1 {
-            color: #ecf0f1;
-            font-size: 42px;
-            margin-bottom: 12px;
-            font-weight: 700;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .header p {
-            color: #bdc3c7;
-            font-size: 15px;
-            font-weight: 400;
-        }
-
-        .form-container {
-            background: linear-gradient(135deg, rgba(44, 62, 80, 0.95), rgba(36, 47, 61, 0.98));
-            padding: 45px;
-            border-radius: 15px;
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4);
-            animation: slideUp 0.6s ease-out;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(20px);
             }
             to {
                 opacity: 1;
@@ -173,18 +184,171 @@
             }
         }
 
-        .form-title {
-            color: #ecf0f1;
-            margin-bottom: 35px;
-            font-size: 24px;
-            font-weight: 600;
+        .header h1 {
+            color: var(--primary-red);
+            font-size: 44px;
+            margin-bottom: 12px;
+            font-weight: 700;
+            letter-spacing: -0.8px;
+        }
+
+        .header p {
+            color: var(--gray-medium);
+            font-size: 17px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .header-subtitle {
+            color: #999;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* FEATURE CARDS */
+        .feature-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+            margin: 50px 0;
+        }
+
+        .feature-card {
+            background: var(--white);
+            padding: 32px 28px;
+            border-radius: 10px;
             text-align: center;
+            box-shadow: 0 1px 4px rgba(232, 93, 93, 0.08);
+            border: 1px solid var(--soft-border);
+            transition: all 0.3s ease;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .feature-card:hover {
+            box-shadow: 0 6px 16px rgba(232, 93, 93, 0.12);
+            transform: translateY(-4px);
+            border-color: var(--primary-red);
+            background: var(--soft-red-lighter);
+        }
+
+        .feature-card-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 18px;
+            background: var(--soft-red-light);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: var(--primary-red);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover .feature-card-icon {
+            background: rgba(232, 93, 93, 0.15);
+            transform: scale(1.05);
+        }
+
+        .feature-card h3 {
+            color: var(--gray-dark);
+            margin-bottom: 12px;
+            font-size: 17px;
+            font-weight: 700;
+        }
+
+        .feature-card p {
+            color: var(--gray-medium);
+            font-size: 13px;
+            line-height: 1.7;
+            font-weight: 500;
+        }
+
+        /* FORM CONTAINER */
+        .form-container {
+            background: var(--white);
+            padding: 48px;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(232, 93, 93, 0.1);
+            max-width: 950px;
+            margin: 50px auto 45px auto;
+            border: 1px solid var(--soft-border);
+            animation: slideUp 0.5s ease-out;
+        }
+
+        .form-title {
+            color: var(--primary-red);
+            margin-bottom: 12px;
+            font-size: 30px;
+            font-weight: 700;
+            text-align: center;
+            letter-spacing: -0.5px;
+        }
+
+        .form-subtitle {
+            color: var(--gray-medium);
+            text-align: center;
+            font-size: 14px;
+            margin-bottom: 40px;
+            font-weight: 500;
+        }
+
+        .info-box {
+            background: var(--soft-red-light);
+            border-left: 4px solid var(--primary-red);
+            padding: 18px 20px;
+            border-radius: 8px;
+            margin-bottom: 32px;
+            font-size: 13px;
+            color: var(--gray-dark);
+            line-height: 1.8;
+            border: 1px solid var(--soft-border);
+        }
+
+        .info-box strong {
+            color: var(--primary-red);
+            font-weight: 700;
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 16px 18px;
+            border-radius: 8px;
+            margin-bottom: 28px;
+            font-size: 13px;
+            border-left: 4px solid var(--success-green);
+            font-weight: 600;
+            border: 1px solid var(--success-green);
+        }
+
+        .error-message {
+            background: #FFF5F1;
+            color: #C43E3E;
+            padding: 16px 18px;
+            border-radius: 8px;
+            margin-bottom: 28px;
+            font-size: 13px;
+            border-left: 4px solid var(--primary-red);
+            font-weight: 600;
+            border: 1px solid var(--primary-red);
         }
 
         .form-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 28px;
             margin-bottom: 35px;
         }
 
@@ -194,138 +358,158 @@
         }
 
         .form-group label {
-            color: #bdc3c7;
-            font-weight: 600;
+            color: var(--gray-dark);
+            font-weight: 700;
             margin-bottom: 10px;
             font-size: 12px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.6px;
+            color: var(--primary-red);
         }
 
         .form-group input {
-            padding: 12px 15px;
-            border: 2px solid rgba(255, 255, 255, 0.15);
+            padding: 12px 16px;
+            border: 2px solid var(--soft-border);
             border-radius: 8px;
             font-size: 14px;
             transition: all 0.3s ease;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: rgba(255, 255, 255, 0.05);
-            color: #ecf0f1;
+            background: var(--soft-red-lighter);
+            color: var(--gray-dark);
+            font-weight: 500;
+            font-family: inherit;
         }
 
         .form-group input::placeholder {
-            color: #7f8c8d;
+            color: #bbb;
         }
 
         .form-group input:focus {
             outline: none;
-            border-color: #f39c12;
-            box-shadow: 0 0 20px rgba(243, 156, 18, 0.3);
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        .info-box {
-            background: linear-gradient(135deg, rgba(243, 156, 18, 0.15), rgba(230, 126, 34, 0.1));
-            border-left: 4px solid #f39c12;
-            padding: 18px;
-            border-radius: 8px;
-            margin-bottom: 25px;
-            font-size: 13px;
-            color: #bdc3c7;
-            line-height: 1.6;
-            border: 1px solid rgba(243, 156, 18, 0.2);
-        }
-
-        .info-box strong {
-            color: #f39c12;
+            border-color: var(--primary-red);
+            background: var(--white);
+            box-shadow: 0 0 0 3px rgba(232, 93, 93, 0.1);
         }
 
         .button-group {
             display: flex;
-            gap: 15px;
+            gap: 16px;
             justify-content: center;
+            margin: 40px 0;
             flex-wrap: wrap;
         }
 
         .btn-primary {
-            padding: 14px 50px;
-            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            padding: 14px 56px;
+            background: linear-gradient(135deg, var(--primary-red), var(--dark-red));
             color: white;
             border: none;
             border-radius: 8px;
             font-size: 15px;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-            width: 100%;
+            box-shadow: 0 4px 12px rgba(232, 93, 93, 0.25);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
         }
 
         .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(231, 76, 60, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(232, 93, 93, 0.35);
         }
 
         .btn-primary:active {
-            transform: translateY(-1px);
+            transform: translateY(0);
+            box-shadow: 0 2px 8px rgba(232, 93, 93, 0.2);
         }
 
-        .error-message {
-            background: linear-gradient(135deg, rgba(192, 57, 43, 0.2), rgba(231, 76, 60, 0.15));
-            color: #f5b7b1;
-            padding: 16px;
+        .btn-secondary {
+            padding: 14px 56px;
+            background: var(--white);
+            color: var(--primary-red);
+            border: 2px solid var(--primary-red);
             border-radius: 8px;
-            margin-bottom: 25px;
-            font-size: 13px;
-            border-left: 4px solid #e74c3c;
-            border: 1px solid rgba(231, 76, 60, 0.3);
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            box-shadow: 0 2px 6px rgba(232, 93, 93, 0.1);
         }
 
+        .btn-secondary:hover {
+            background: var(--soft-red-light);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(232, 93, 93, 0.15);
+        }
+
+        /* GUIDELINES */
         .guidelines {
-            background: linear-gradient(135deg, rgba(52, 73, 94, 0.5), rgba(44, 62, 80, 0.6));
-            padding: 25px;
-            border-radius: 8px;
-            margin-top: 30px;
-            font-size: 12px;
-            color: #bdc3c7;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: var(--white);
+            padding: 35px;
+            border-radius: 12px;
+            margin: 40px 0;
+            font-size: 13px;
+            color: var(--gray-dark);
+            border: 1px solid var(--soft-border);
+            box-shadow: 0 1px 4px rgba(232, 93, 93, 0.08);
         }
 
         .guidelines h4 {
-            color: #f39c12;
-            margin-bottom: 15px;
-            font-size: 13px;
+            color: var(--primary-red);
+            margin-bottom: 24px;
+            font-size: 15px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.6px;
+            font-weight: 700;
         }
 
         .guidelines ul {
-            margin-left: 20px;
-            line-height: 1.8;
+            margin-left: 24px;
+            line-height: 2;
         }
 
         .guidelines li {
-            margin-bottom: 8px;
+            margin-bottom: 10px;
+            color: var(--gray-dark);
+            font-weight: 500;
         }
 
+        .guidelines li strong {
+            color: var(--primary-red);
+            font-weight: 700;
+        }
+
+        /* FOOTER */
+        .footer {
+            background: var(--white);
+            color: var(--gray-dark);
+            text-align: center;
+            padding: 35px 20px;
+            font-size: 12px;
+            margin-top: 50px;
+            border-top: 1px solid var(--soft-border);
+            font-weight: 600;
+            box-shadow: 0 -2px 8px rgba(232, 93, 93, 0.05);
+        }
+
+        .footer a {
+            color: var(--primary-red);
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* RESPONSIVE */
         @media (max-width: 768px) {
-            .form-container {
-                padding: 30px 20px;
-            }
-
-            .header h1 {
-                font-size: 32px;
-            }
-
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .navbar {
+            .navbar .container {
                 flex-direction: column;
                 gap: 15px;
-                text-align: center;
             }
 
             .navbar-user {
@@ -333,29 +517,127 @@
                 justify-content: space-between;
             }
 
-            .nav-menu {
-                justify-content: center;
+            .header h1 {
+                font-size: 32px;
+                color: var(--primary-red);
             }
 
-            .btn-primary {
+            .header p {
+                font-size: 16px;
+            }
+
+            .form-container {
+                padding: 30px 24px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .feature-cards {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 20px;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .btn-primary,
+            .btn-secondary {
                 width: 100%;
+                padding: 12px 24px;
+            }
+
+            .nav-menu .container {
+                gap: 6px;
+            }
+
+            .nav-link {
+                padding: 8px 14px;
+                font-size: 11px;
+            }
+
+            .guidelines {
+                padding: 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar-brand {
+                font-size: 22px;
+            }
+
+            .header h1 {
+                font-size: 26px;
+                margin-bottom: 10px;
+                color: var(--primary-red);
+            }
+
+            .header p {
+                font-size: 14px;
+            }
+
+            .form-container {
+                padding: 24px 18px;
+                border-radius: 10px;
+            }
+
+            .form-title {
+                font-size: 24px;
+                color: var(--primary-red);
+            }
+
+            .feature-card {
+                padding: 24px 20px;
+            }
+
+            .guidelines {
+                padding: 20px;
+            }
+
+            .logout-btn {
+                padding: 8px 16px;
+                font-size: 11px;
+            }
+
+            .user-info {
+                font-size: 12px;
+            }
+
+            .btn-primary,
+            .btn-secondary {
+                font-size: 13px;
+                padding: 12px 20px;
+            }
+
+            .form-grid {
+                gap: 16px;
+            }
+
+            .nav-link {
+                padding: 7px 12px;
+                font-size: 10px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Navbar -->
-        <div class="navbar">
-            <div class="navbar-brand">DiabetesCare</div>
+    <!-- NAVBAR -->
+    <div class="navbar">
+        <div class="container">
+            <a href="/home" class="navbar-brand">DiabetesCare</a>
             <div class="navbar-user">
                 <div class="user-info">Welcome, <strong>{{ username }}</strong></div>
                 <a href="/logout" class="logout-btn">Logout</a>
             </div>
         </div>
+    </div>
 
-        <!-- Navigation Menu -->
-        <div class="nav-menu">
+    <!-- NAVIGATION MENU -->
+    <div class="nav-menu">
+        <div class="container">
             <a href="/home" class="nav-link active">Dashboard</a>
             <a href="/health-tips" class="nav-link">Health Tips</a>
             <a href="/diet-recommendations" class="nav-link">Diet Guide</a>
@@ -364,68 +646,98 @@
             <a href="/bmi-calculator" class="nav-link">BMI Calculator</a>
             <a href="/about" class="nav-link">About</a>
         </div>
+    </div>
 
+    <div class="container">
+        <!-- HERO HEADER -->
         <div class="header">
             <h1>Diabetes Risk Assessment</h1>
-            <p>Advanced ML-based Prediction System</p>
+            <p>Advanced Machine Learning-based Prediction System</p>
+            <div class="header-subtitle">Get accurate predictions based on your health metrics</div>
         </div>
 
-        <!-- Main Form -->
+        <!-- FEATURE CARDS -->
+        <div class="feature-cards">
+            <div class="feature-card">
+                <div class="feature-card-icon">⚡</div>
+                <h3>Instant Results</h3>
+                <p>Receive immediate risk assessment with precision and accuracy</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-card-icon">🎯</div>
+                <h3>Personalized</h3>
+                <p>Customized recommendations tailored to your health profile</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-card-icon">🔬</div>
+                <h3>Medical Grade</h3>
+                <p>Science-backed accuracy with proven reliability standards</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-card-icon">🔒</div>
+                <h3>Secure & Private</h3>
+                <p>Your health data is completely protected and confidential</p>
+            </div>
+        </div>
+
+        <!-- FORM CONTAINER -->
         <div class="form-container">
             {% if error %}
-            <div class="error-message">{{ error }}</div>
+            <div class="error-message">
+                <strong>Error:</strong> {{ error }}
+            </div>
+            {% endif %}
+
+            {% if success %}
+            <div class="success-message">
+                <strong>Success:</strong> {{ success }}
+            </div>
             {% endif %}
 
             <h2 class="form-title">Patient Health Information</h2>
+            <p class="form-subtitle">Enter your health metrics for accurate diabetes risk assessment</p>
 
             <div class="info-box">
-                Please enter accurate health measurements for precise prediction results. All fields are required.
+                <strong>Important:</strong> Please provide accurate health measurements for the most reliable prediction results. All fields are required for comprehensive assessment.
             </div>
 
-            <form method="POST" action="/predict">
+            <form method="POST" action="/predict" name="predictionForm" onsubmit="return validateForm()">
                 <div class="form-grid">
                     <div class="form-group">
                         <label for="pregnancies">Pregnancies</label>
                         <input type="number" id="pregnancies" name="pregnancies" 
                                placeholder="Number of pregnancies" min="0" max="20" required>
                     </div>
-
                     <div class="form-group">
                         <label for="glucose">Glucose Level (mg/dL)</label>
                         <input type="number" id="glucose" name="glucose" 
                                placeholder="Fasting glucose level" min="0" max="300" required>
                     </div>
-
                     <div class="form-group">
                         <label for="bloodpressure">Blood Pressure (mmHg)</label>
                         <input type="number" id="bloodpressure" name="bloodpressure" 
                                placeholder="Diastolic BP" min="0" max="200" required>
                     </div>
-
                     <div class="form-group">
                         <label for="skinthickness">Skin Thickness (mm)</label>
                         <input type="number" id="skinthickness" name="skinthickness" 
                                placeholder="Triceps thickness" min="0" max="100" required>
                     </div>
-
                     <div class="form-group">
                         <label for="insulin">Insulin (mu U/ml)</label>
                         <input type="number" id="insulin" name="insulin" 
                                placeholder="2-hour serum insulin" min="0" max="900" required>
                     </div>
-
                     <div class="form-group">
                         <label for="bmi">BMI (kg/m²)</label>
                         <input type="number" id="bmi" name="bmi" 
                                placeholder="Body Mass Index" min="0" max="70" step="0.1" required>
                     </div>
-
                     <div class="form-group">
                         <label for="dpf">Diabetes Pedigree Factor</label>
                         <input type="number" id="dpf" name="dpf" 
                                placeholder="Family history factor" min="0" max="2.5" step="0.001" required>
                     </div>
-
                     <div class="form-group">
                         <label for="age">Age (years)</label>
                         <input type="number" id="age" name="age" 
@@ -435,20 +747,79 @@
 
                 <div class="button-group">
                     <button type="submit" class="btn-primary">Get Prediction</button>
+                    <button type="reset" class="btn-secondary">Clear Form</button>
                 </div>
             </form>
 
             <div class="guidelines">
-                <h4>Important Guidelines</h4>
+                <h4>Health Metrics Guidelines</h4>
                 <ul>
-                    <li><strong>Glucose:</strong> Fasting blood glucose level in mg/dL (typical range: 70-100)</li>
-                    <li><strong>Blood Pressure:</strong> Diastolic blood pressure in mmHg (typical range: 60-80)</li>
-                    <li><strong>BMI:</strong> Weight in kg divided by height in meters squared</li>
-                    <li><strong>Age:</strong> Patient age in years</li>
-                    <li><strong>Disclaimer:</strong> This prediction is for informational purposes and should not replace professional medical advice.</li>
+                    <li><strong>Glucose:</strong> Fasting blood glucose level in mg/dL. Typical range: 70-100 mg/dL for non-fasting individuals</li>
+                    <li><strong>Blood Pressure:</strong> Diastolic blood pressure reading in mmHg. Normal range: 60-80 mmHg</li>
+                    <li><strong>Skin Thickness:</strong> Triceps skin fold thickness measurement in millimeters</li>
+                    <li><strong>Insulin:</strong> 2-hour serum insulin level in milli-international units per milliliter</li>
+                    <li><strong>BMI:</strong> Body Mass Index calculated as weight (kg) divided by height squared (m²)</li>
+                    <li><strong>Age:</strong> Patient age in complete years. Minimum age requirement: 18 years</li>
+                    <li><strong>Diabetes Pedigree Factor:</strong> Family history of diabetes represented as a numeric value</li>
+                    <li><strong>Disclaimer:</strong> This prediction is for informational purposes only and should not replace professional medical consultation or diagnosis</li>
                 </ul>
             </div>
         </div>
     </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        Copyright © 2026 DiabetesCare - Diabetes Risk Assessment System | 
+        <a href="/about">About</a> | 
+        <a href="/health-tips">Health Tips</a> | 
+        <a href="/risk-assessment">Risk Assessment</a>
+    </div>
+
+    <script>
+        function validateForm() {
+            const form = document.forms['predictionForm'];
+            const glucose = parseFloat(form['glucose'].value);
+            const age = parseFloat(form['age'].value);
+            const bmi = parseFloat(form['bmi'].value);
+
+            if (glucose < 0 || glucose > 300) {
+                alert('Glucose level should be between 0-300 mg/dL');
+                return false;
+            }
+
+            if (age < 18 || age > 150) {
+                alert('Age should be between 18-150 years');
+                return false;
+            }
+
+            if (bmi < 0 || bmi > 70) {
+                alert('BMI should be between 0-70 kg/m²');
+                return false;
+            }
+
+            return true;
+        }
+
+        // Set active nav link based on current page
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPath = window.location.pathname;
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPath) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        });
+
+        // Form submission feedback
+        document.querySelector('form').addEventListener('submit', function() {
+            const submitBtn = this.querySelector('.btn-primary');
+            submitBtn.textContent = 'Processing...';
+            submitBtn.disabled = true;
+        });
+    </script>
 </body>
 </html>

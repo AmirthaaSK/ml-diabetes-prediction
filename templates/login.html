@@ -3,31 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Diabetes Prediction System</title>
+    <title>DiabetesCare - Login & Sign Up</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <style>
-        .login-container {
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
         }
 
-        .login-box {
-            background: white;
-            padding: 50px;
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        .auth-container {
             width: 100%;
-            max-width: 400px;
-            animation: slideUp 0.5s ease-out;
+            max-width: 450px;
+        }
+
+        .auth-card {
+            background: rgba(255, 255, 255, 0.97);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.4), 0 0 60px rgba(231, 76, 60, 0.2);
+            overflow: hidden;
+            animation: slideUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         @keyframes slideUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(50px);
             }
             to {
                 opacity: 1;
@@ -35,18 +48,85 @@
             }
         }
 
-        .login-box h1 {
-            color: #333;
-            margin-bottom: 10px;
+        .auth-header {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 50%, #a93226 100%);
+            padding: 50px 30px;
             text-align: center;
-            font-size: 28px;
+            color: white;
+            position: relative;
+            overflow: hidden;
         }
 
-        .login-box .subtitle {
-            text-align: center;
-            color: #666;
-            margin-bottom: 30px;
+        .auth-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.2), transparent);
+            pointer-events: none;
+        }
+
+        .auth-header h1 {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            letter-spacing: -1px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .auth-header p {
             font-size: 14px;
+            opacity: 0.98;
+            font-weight: 300;
+            position: relative;
+            z-index: 1;
+            letter-spacing: 0.5px;
+        }
+
+        .tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 15px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            color: #666;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .tab-btn:hover {
+            color: #e74c3c;
+        }
+
+        .tab-btn.active {
+            color: #e74c3c;
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #e74c3c;
+        }
+
+        .auth-content {
+            padding: 45px 35px;
+            background: rgba(248, 249, 250, 0.8);
         }
 
         .form-group {
@@ -55,114 +135,259 @@
 
         .form-group label {
             display: block;
-            margin-bottom: 8px;
-            color: #333;
-            font-weight: 600;
-            font-size: 14px;
+            margin-bottom: 10px;
+            color: #2c3e50;
+            font-weight: 700;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
         }
 
         .form-group input {
             width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
+            padding: 13px 16px;
+            border: 2px solid #e8e8e8;
+            border-radius: 10px;
             font-size: 14px;
-            transition: all 0.3s ease;
-            box-sizing: border-box;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: white;
+        }
+
+        .form-group input::placeholder {
+            color: #b0bac9;
         }
 
         .form-group input:focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 10px rgba(102, 126, 234, 0.2);
+            border-color: #e74c3c;
+            box-shadow: 0 0 20px rgba(231, 76, 60, 0.3), inset 0 0 8px rgba(231, 76, 60, 0.05);
+            background: rgba(231, 76, 60, 0.02);
+            transform: translateY(-1px);
         }
 
-        .login-btn {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 10px;
-        }
-
-        .login-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        .password-hint {
+            font-size: 12px;
+            color: #95a5a6;
+            margin-top: 6px;
+            font-weight: 500;
         }
 
         .error-message {
-            background: #fee;
-            color: #c33;
-            padding: 12px;
+            background: #fadbd8;
+            color: #c0392b;
+            padding: 14px 15px;
             border-radius: 8px;
             margin-bottom: 20px;
-            font-size: 14px;
-            border-left: 4px solid #c33;
+            font-size: 13px;
+            border-left: 4px solid #e74c3c;
+            display: flex;
+            align-items: center;
         }
 
-        .demo-credentials {
-            background: #f0f4ff;
+        .success-message {
+            background: #d5f4e6;
+            color: #27ae60;
+            padding: 14px 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            border-left: 4px solid #27ae60;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            margin-top: 8px;
+            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.3);
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(231, 76, 60, 0.5);
+        }
+
+        .submit-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .submit-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .form-content {
+            display: none;
+        }
+
+        .form-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .demo-info {
+            background: #ecf0f1;
             padding: 15px;
             border-radius: 8px;
             margin-top: 20px;
-            font-size: 13px;
-            color: #555;
-            border-left: 4px solid #667eea;
+            font-size: 12px;
+            color: #34495e;
+            border-left: 4px solid #3498db;
         }
 
-        .demo-credentials strong {
+        .demo-info strong {
             display: block;
-            color: #333;
+            color: #2c3e50;
             margin-bottom: 8px;
         }
 
-        .demo-credentials p {
-            margin: 5px 0;
-            font-family: monospace;
+        .demo-info p {
+            margin: 4px 0;
         }
 
-        .demo-credentials .credential {
-            color: #667eea;
+        @media (max-width: 500px) {
+            .auth-card {
+                border-radius: 15px;
+            }
+
+            .auth-header {
+                padding: 30px 20px;
+            }
+
+            .auth-header h1 {
+                font-size: 28px;
+            }
+
+            .auth-content {
+                padding: 30px 20px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <div class="login-box">
-            <h1>🏥 DiabetesCare</h1>
-            <p class="subtitle">Diabetes Prediction System</p>
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <h1>DiabetesCare</h1>
+                <p>Diabetes Risk Assessment System</p>
+            </div>
 
-            {% if error %}
-            <div class="error-message">⚠️ {{ error }}</div>
-            {% endif %}
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('login')">Sign In</button>
+                <button class="tab-btn" onclick="switchTab('register')">Create Account</button>
+            </div>
 
-            <form method="POST">
-                <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" id="username" name="username" placeholder="Enter your username" required>
+            <div class="auth-content">
+                <!-- Login Form -->
+                <div id="login" class="form-content active">
+                    {% if error and not register_mode %}
+                    <div class="error-message">{{ error }}</div>
+                    {% endif %}
+
+                    <form method="POST" action="/login">
+                        <div class="form-group">
+                            <label for="login-username">Username</label>
+                            <input type="text" id="login-username" name="username" placeholder="Enter your username" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="login-password">Password</label>
+                            <input type="password" id="login-password" name="password" placeholder="Enter your password" required>
+                        </div>
+
+                        <button type="submit" class="submit-btn">Sign In</button>
+                    </form>
+
+                    <div class="demo-info">
+                        <strong>Demo Credentials:</strong>
+                        <p>Username: <strong>admin</strong></p>
+                        <p>Password: <strong>admin123</strong></p>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                <!-- Register Form -->
+                <div id="register" class="form-content">
+                    {% if error and register_mode %}
+                    <div class="error-message">{{ error }}</div>
+                    {% endif %}
+                    {% if success %}
+                    <div class="success-message">{{ success }}</div>
+                    {% endif %}
+
+                    <form method="POST" action="/register">
+                        <div class="form-group">
+                            <label for="register-username">Username</label>
+                            <input type="text" id="register-username" name="username" placeholder="Choose a username" required minlength="3" maxlength="20">
+                            <div class="password-hint">3-20 characters</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="register-password">Password</label>
+                            <input type="password" id="register-password" name="password" placeholder="Create a password" required minlength="6">
+                            <div class="password-hint">At least 6 characters</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="register-confirm">Confirm Password</label>
+                            <input type="password" id="register-confirm" name="confirm_password" placeholder="Confirm your password" required minlength="6">
+                        </div>
+
+                        <button type="submit" class="submit-btn">Create Account</button>
+                    </form>
                 </div>
-
-                <button type="submit" class="login-btn">Login</button>
-            </form>
-
-            <div class="demo-credentials">
-                <strong>Demo Credentials:</strong>
-                <p><span class="credential">Username: admin</span></p>
-                <p><span class="credential">Password: admin123</span></p>
-                <p style="margin-top: 10px; color: #999;">Also try: user/user123 or doctor/doctor123</p>
             </div>
         </div>
     </div>
+
+    <script>
+        function switchTab(tab) {
+            // Hide all forms
+            document.getElementById('login').classList.remove('active');
+            document.getElementById('register').classList.remove('active');
+            
+            // Remove active class from all buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected form and button
+            document.getElementById(tab).classList.add('active');
+            event.target.classList.add('active');
+        }
+    </script>
 </body>
 </html>

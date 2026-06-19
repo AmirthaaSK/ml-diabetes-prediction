@@ -11,8 +11,8 @@ html, body {
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: #333;
+    background: linear-gradient(135deg, #0f3460 0%, #16213e 50%, #1a1a2e 100%);
+    color: #ecf0f1;
     line-height: 1.6;
 }
 
@@ -20,21 +20,19 @@ body {
 h1, h2, h3, h4, h5, h6 {
     font-weight: 600;
     margin-bottom: 15px;
+    color: #ecf0f1;
 }
 
 h1 {
     font-size: 36px;
-    color: #667eea;
 }
 
 h2 {
     font-size: 28px;
-    color: #333;
 }
 
 h3 {
     font-size: 20px;
-    color: #555;
 }
 
 /* Forms */
@@ -47,11 +45,21 @@ select {
     width: 100%;
     padding: 12px 15px;
     margin: 8px 0;
-    border: 2px solid #e0e0e0;
+    border: 2px solid rgba(255, 255, 255, 0.15);
     border-radius: 8px;
     font-size: 14px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.05);
+    color: #ecf0f1;
+}
+
+input[type="text"]::placeholder,
+input[type="email"]::placeholder,
+input[type="password"]::placeholder,
+input[type="number"]::placeholder,
+textarea::placeholder {
+    color: #7f8c8d;
 }
 
 input[type="text"]:focus,
@@ -61,16 +69,16 @@ input[type="number"]:focus,
 textarea:focus,
 select:focus {
     outline: none;
-    border-color: #667eea;
-    box-shadow: 0 0 12px rgba(102, 126, 234, 0.2);
-    background: #f9faff;
+    border-color: #f39c12;
+    box-shadow: 0 0 15px rgba(243, 156, 18, 0.3);
+    background: rgba(255, 255, 255, 0.08);
 }
 
 /* Buttons */
 button,
 .btn {
     padding: 12px 24px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
     color: white;
     border: none;
     border-radius: 8px;
@@ -86,7 +94,17 @@ button,
 button:hover,
 .btn:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 8px 20px rgba(231, 76, 60, 0.4);
+}
+
+button:active,
+.btn:active {
+    transform: translateY(-1px);
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
 button:active,

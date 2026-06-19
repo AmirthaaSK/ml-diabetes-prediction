@@ -3,6 +3,7 @@ import pickle
 import numpy as np
 import os
 from functools import wraps
+import json
 
 print(os.getcwd())
 app = Flask(__name__)
@@ -14,12 +15,45 @@ scaler_path = os.path.join(os.path.dirname(__file__), "scaler.pkl")
 model = pickle.load(open(model_path, "rb"))
 scaler = pickle.load(open(scaler_path, "rb"))
 
-# Sample user database (in production, use a real database)
-users = {
+# Users database file
+USERS_FILE = os.path.join(os.path.dirname(__file__), "users.json")
+
+# Initialize with demo users
+DEFAULT_USERS = {
     "admin": "admin123",
     "user": "user123",
     "doctor": "doctor123"
 }
+
+def load_users():
+    """Load users from JSON file"""
+    if os.path.exists(USERS_FILE):
+        try:
+            with open(USERS_FILE, 'r') as f:
+                return json.load(f)
+        except:
+            return DEFAULT_USERS.copy()
+    return DEFAULT_USERS.copy()
+
+def save_users(users_dict):
+    """Save users to JSON file"""
+    try:
+        with open(USERS_FILE, 'w') as f:
+            json.dump(users_dict, f, indent=2)
+        return True
+    except:
+        return False
+
+# Load users into memory
+users = load_users()
+
+def validate_password(password):
+    """Validate password requirements (minimum 6 characters)"""
+    return len(password) >= 6 and len(password) <= 50
+
+def validate_username(username):
+    """Validate username requirements"""
+    return 3 <= len(username) <= 20 and username.replace('_', '').replace('-', '').isalnum()
 
 # Login required decorator
 def login_required(f):
@@ -39,16 +73,55 @@ def index():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
-        username = request.form.get("username")
-        password = request.form.get("password")
+        username = request.form.get("username", "").strip()
+        password = request.form.get("password", "")
+        
+        if not username or not password:
+            return render_template("login.html", error="Please enter username and password")
         
         if username in users and users[username] == password:
             session['user'] = username
             return redirect(url_for('home'))
         else:
-            return render_template("login.html", error="Invalid username or password")
+            return render_template("login.html", error="Invalid username or password. Please try again.")
     
     return render_template("login.html")
+
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    if request.method == "POST":
+        username = request.form.get("username", "").strip()
+        password = request.form.get("password", "")
+        confirm_password = request.form.get("confirm_password", "")
+        
+        # Validation checks
+        if not username:
+            return render_template("login.html", error="Username cannot be empty", register_mode=True)
+        
+        if not validate_username(username):
+            return render_template("login.html", error="Username must be 3-20 characters (alphanumeric, - or _)", register_mode=True)
+        
+        if username in users:
+            return render_template("login.html", error="Username already exists. Please choose another.", register_mode=True)
+        
+        if not password:
+            return render_template("login.html", error="Password cannot be empty", register_mode=True)
+        
+        if not validate_password(password):
+            return render_template("login.html", error="Password must be at least 6 characters", register_mode=True)
+        
+        if password != confirm_password:
+            return render_template("login.html", error="Passwords do not match", register_mode=True)
+        
+        # Register user
+        users[username] = password
+        save_users(users)
+        
+        # Auto login after registration
+        session['user'] = username
+        return redirect(url_for('home'))
+    
+    return render_template("login.html", register_mode=True)
 
 @app.route("/home")
 @login_required

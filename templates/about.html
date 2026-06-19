@@ -7,10 +7,11 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <style>
         body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background: linear-gradient(135deg, #0f3460 0%, #16213e 50%, #1a1a2e 100%);
             min-height: 100vh;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             padding: 20px;
+            color: #ecf0f1;
         }
 
         .navbar {
@@ -273,7 +274,7 @@
     <div class="container">
         <!-- Navbar -->
         <div class="navbar">
-            <div class="navbar-brand">🏥 DiabetesCare</div>
+            <div class="navbar-brand">DiabetesCare</div>
             <div class="navbar-user">
                 <div class="user-info">Welcome, <strong>{{ username }}</strong></div>
                 <a href="/logout" class="logout-btn">Logout</a>
@@ -282,24 +283,24 @@
 
         <!-- Navigation Menu -->
         <div class="nav-menu">
-            <a href="/home" class="nav-link">📋 Dashboard</a>
-            <a href="/health-tips" class="nav-link">💡 Health Tips</a>
-            <a href="/diet-recommendations" class="nav-link">🍎 Diet Guide</a>
-            <a href="/exercise-guide" class="nav-link">💪 Exercise</a>
-            <a href="/risk-assessment" class="nav-link">⚠️ Risk Assessment</a>
-            <a href="/bmi-calculator" class="nav-link">📊 BMI Calc</a>
-            <a href="/about" class="nav-link active">ℹ️ About</a>
+            <a href="/home" class="nav-link">Dashboard</a>
+            <a href="/health-tips" class="nav-link">Health Tips</a>
+            <a href="/diet-recommendations" class="nav-link">Diet Guide</a>
+            <a href="/exercise-guide" class="nav-link">Exercise</a>
+            <a href="/risk-assessment" class="nav-link">Risk Assessment</a>
+            <a href="/bmi-calculator" class="nav-link">BMI Calculator</a>
+            <a href="/about" class="nav-link active">About</a>
         </div>
 
         <!-- About Section -->
         <div class="about-section">
-            <h1>🏥 About DiabetesCare</h1>
+            <h1>About DiabetesCare</h1>
 
             <p>
                 <strong>DiabetesCare</strong> is an advanced machine learning-based diabetes prediction and prevention platform designed to empower individuals with information about their diabetes risk. Our mission is to make healthcare more accessible and help people take proactive steps toward better health.
             </p>
 
-            <h2>🎯 Our Mission</h2>
+            <h2>Our Mission</h2>
             <p>
                 We believe that early detection and prevention are key to managing diabetes effectively. By combining cutting-edge machine learning technology with evidence-based medical guidelines, DiabetesCare provides personalized insights and actionable recommendations to help you maintain optimal health.
             </p>
@@ -307,7 +308,7 @@
             <h2>✨ Key Features</h2>
             <div class="feature-grid">
                 <div class="feature-card">
-                    <div class="icon">🤖</div>
+                    <div class="icon">ML</div>
                     <h3>ML Prediction</h3>
                     <p>Advanced Random Forest algorithm trained on real patient data</p>
                 </div>
@@ -317,7 +318,7 @@
                     <p>Protected user accounts with session management</p>
                 </div>
                 <div class="feature-card">
-                    <div class="icon">📊</div>
+                    <div class="icon">Stats</div>
                     <h3>BMI Calculator</h3>
                     <p>Quick health metrics assessment and tracking</p>
                 </div>
@@ -327,18 +328,18 @@
                     <p>Evidence-based recommendations and lifestyle guidance</p>
                 </div>
                 <div class="feature-card">
-                    <div class="icon">🍎</div>
+                    <div class="icon">Diet</div>
                     <h3>Diet Guidance</h3>
                     <p>Diabetes-friendly meal plans and nutritional advice</p>
                 </div>
                 <div class="feature-card">
-                    <div class="icon">💪</div>
+                    <div class="icon">Fitness</div>
                     <h3>Exercise Plans</h3>
                     <p>Customized physical activity recommendations</p>
                 </div>
             </div>
 
-            <h2>🧠 How It Works</h2>
+            <h2>How It Works</h2>
             <div class="highlight">
                 <h3>Our Prediction Algorithm</h3>
                 <p>
@@ -403,12 +404,12 @@
                 </ul>
             </div>
 
-            <h2>📊 Accuracy & Validation</h2>
+            <h2>Accuracy & Validation</h2>
             <p>
                 Our machine learning model achieves approximately 78-82% accuracy on the test dataset. However, please note that this tool is for informational purposes only and should not replace professional medical advice from qualified healthcare providers.
             </p>
 
-            <h2>🔐 Privacy & Security</h2>
+            <h2>Privacy & Security</h2>
             <p>
                 Your health data is important to us. DiabetesCare implements:
             </p>
@@ -421,7 +422,7 @@
             </ul>
 
             <div class="disclaimer">
-                <h3>⚠️ Important Disclaimer</h3>
+                <h3>Important Disclaimer</h3>
                 <p>
                     <strong>DiabetesCare is not a medical device.</strong> This application is designed for educational and informational purposes only. The predictions made by this system are not intended to diagnose, treat, cure, or prevent any disease. 
                 </p>

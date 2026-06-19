@@ -7,10 +7,11 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <style>
         body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background: linear-gradient(135deg, #0f3460 0%, #16213e 50%, #1a1a2e 100%);
             min-height: 100vh;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             padding: 20px;
+            color: #ecf0f1;
         }
 
         .navbar {
@@ -264,7 +265,7 @@
     <div class="container">
         <!-- Navbar -->
         <div class="navbar">
-            <div class="navbar-brand">🏥 DiabetesCare</div>
+            <div class="navbar-brand">DiabetesCare</div>
             <div class="navbar-user">
                 <div class="user-info">Welcome, <strong>{{ username }}</strong></div>
                 <a href="/logout" class="logout-btn">Logout</a>
@@ -273,13 +274,13 @@
 
         <!-- Navigation Menu -->
         <div class="nav-menu">
-            <a href="/home" class="nav-link">📋 Dashboard</a>
-            <a href="/health-tips" class="nav-link">💡 Health Tips</a>
-            <a href="/diet-recommendations" class="nav-link">🍎 Diet Guide</a>
-            <a href="/exercise-guide" class="nav-link active">💪 Exercise</a>
-            <a href="/risk-assessment" class="nav-link">⚠️ Risk Assessment</a>
-            <a href="/bmi-calculator" class="nav-link">📊 BMI Calc</a>
-            <a href="/about" class="nav-link">ℹ️ About</a>
+            <a href="/home" class="nav-link">Dashboard</a>
+            <a href="/health-tips" class="nav-link">Health Tips</a>
+            <a href="/diet-recommendations" class="nav-link">Diet Guide</a>
+            <a href="/exercise-guide" class="nav-link active">Exercise</a>
+            <a href="/risk-assessment" class="nav-link">Risk Assessment</a>
+            <a href="/bmi-calculator" class="nav-link">BMI Calculator</a>
+            <a href="/about" class="nav-link">About</a>
         </div>
 
         <!-- Header -->

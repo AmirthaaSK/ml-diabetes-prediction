@@ -13,27 +13,30 @@
         }
 
         body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background: linear-gradient(135deg, #0f3460 0%, #16213e 50%, #1a1a2e 100%);
             min-height: 100vh;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             padding: 20px;
+            color: #ecf0f1;
         }
 
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
         }
 
         .navbar {
-            background: white;
-            padding: 15px 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(135deg, rgba(44, 62, 80, 0.9), rgba(26, 26, 46, 0.95));
+            backdrop-filter: blur(10px);
+            padding: 18px 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 30px;
-            animation: slideDown 0.5s ease-out;
+            animation: slideDown 0.6s ease-out;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         @keyframes slideDown {
@@ -48,9 +51,10 @@
         }
 
         .navbar-brand {
-            font-size: 24px;
+            font-size: 26px;
             font-weight: 700;
-            color: #667eea;
+            color: #ecf0f1;
+            letter-spacing: -0.5px;
         }
 
         .navbar-user {
@@ -60,36 +64,41 @@
         }
 
         .user-info {
-            color: #555;
-            font-size: 14px;
+            color: #bdc3c7;
+            font-size: 13px;
+            font-weight: 500;
         }
 
         .user-info strong {
-            color: #667eea;
+            color: #f39c12;
         }
 
         .logout-btn {
-            background: #ff6b6b;
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
             color: white;
-            padding: 8px 20px;
+            padding: 10px 22px;
             border: none;
             border-radius: 6px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 13px;
+            font-weight: 600;
             transition: all 0.3s ease;
         }
 
         .logout-btn:hover {
-            background: #ff5252;
+            background: linear-gradient(135deg, #c0392b 0%, #a93226 100%);
             transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.3);
         }
 
         .result-container {
-            background: white;
-            padding: 50px;
+            background: linear-gradient(135deg, rgba(44, 62, 80, 0.95), rgba(36, 47, 61, 0.98));
+            padding: 45px;
             border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4);
             animation: slideUp 0.6s ease-out;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
             text-align: center;
         }
 
@@ -105,28 +114,31 @@
         }
 
         .result-header {
-            margin-bottom: 30px;
+            margin-bottom: 35px;
         }
 
         .result-header h1 {
-            color: #333;
-            font-size: 28px;
+            color: #ecf0f1;
+            font-size: 32px;
             margin-bottom: 10px;
+            font-weight: 700;
         }
 
         .result-header p {
-            color: #999;
+            color: #bdc3c7;
             font-size: 14px;
         }
 
         .result-badge {
             display: inline-block;
-            padding: 20px 40px;
+            padding: 25px 50px;
             border-radius: 12px;
-            font-size: 24px;
+            font-size: 28px;
             font-weight: 700;
-            margin: 20px 0;
-            animation: scaleIn 0.6s ease-out;
+            margin: 25px 0;
+            animation: scaleIn 0.7s ease-out;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         @keyframes scaleIn {
@@ -141,26 +153,28 @@
         }
 
         .badge-diabetic {
-            background: linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%);
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
             color: white;
+            box-shadow: 0 10px 30px rgba(231, 76, 60, 0.4);
         }
 
         .badge-non-diabetic {
-            background: linear-gradient(135deg, #51cf66 0%, #40c057 100%);
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
             color: white;
+            box-shadow: 0 10px 30px rgba(39, 174, 96, 0.4);
         }
 
         .probability-section {
-            background: #f9faff;
-            padding: 30px;
+            background: linear-gradient(135deg, rgba(243, 156, 18, 0.15), rgba(230, 126, 34, 0.1));
+            padding: 35px;
             border-radius: 12px;
-            margin: 30px 0;
-            border: 2px solid #e0e0f0;
+            margin: 35px 0;
+            border: 2px solid rgba(243, 156, 18, 0.2);
         }
 
         .probability-label {
-            color: #666;
-            font-size: 14px;
+            color: #bdc3c7;
+            font-size: 13px;
             margin-bottom: 15px;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -168,108 +182,130 @@
         }
 
         .probability-value {
-            font-size: 48px;
+            font-size: 56px;
             font-weight: 700;
-            color: #667eea;
-            margin-bottom: 15px;
+            color: #f39c12;
+            margin-bottom: 20px;
         }
 
         .probability-bar {
             width: 100%;
-            height: 20px;
-            background: #e0e0e0;
-            border-radius: 10px;
+            height: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
             overflow: hidden;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .probability-fill {
             height: 100%;
-            background: linear-gradient(90deg, #667eea, #764ba2);
-            transition: width 0.6s ease-out;
-            border-radius: 10px;
+            background: linear-gradient(90deg, #f39c12, #e67e22);
+            transition: width 0.8s ease-out;
+            border-radius: 12px;
         }
 
         .risk-level {
             font-size: 16px;
             font-weight: 600;
-            margin-top: 10px;
-            color: #333;
+            color: #ecf0f1;
         }
 
         .patient-data {
-            background: #f0f4ff;
-            padding: 25px;
+            background: linear-gradient(135deg, rgba(52, 73, 94, 0.5), rgba(44, 62, 80, 0.6));
+            padding: 30px;
             border-radius: 12px;
-            margin: 30px 0;
+            margin: 35px 0;
             text-align: left;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .patient-data h3 {
-            color: #333;
-            margin-bottom: 20px;
+            color: #f39c12;
+            margin-bottom: 25px;
             font-size: 16px;
             text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .data-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 15px;
         }
 
         .data-item {
-            background: white;
-            padding: 15px;
+            background: linear-gradient(135deg, rgba(26, 26, 46, 0.8), rgba(15, 52, 96, 0.6));
+            padding: 18px;
             border-radius: 8px;
-            border-left: 4px solid #667eea;
+            border-left: 4px solid #f39c12;
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .data-label {
-            color: #999;
-            font-size: 12px;
+            color: #7f8c8d;
+            font-size: 11px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
         }
 
         .data-value {
-            color: #333;
+            color: #ecf0f1;
             font-size: 18px;
             font-weight: 600;
         }
 
         .recommendation {
-            background: #fff8f0;
-            border-left: 4px solid #ff9500;
-            padding: 20px;
+            padding: 25px;
             border-radius: 8px;
-            margin: 30px 0;
+            margin: 35px 0;
             text-align: left;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .recommendation.diabetic {
+            background: linear-gradient(135deg, rgba(192, 57, 43, 0.2), rgba(231, 76, 60, 0.15));
+            border-left: 4px solid #e74c3c;
+        }
+
+        .recommendation.non-diabetic {
+            background: linear-gradient(135deg, rgba(39, 174, 96, 0.15), rgba(46, 204, 113, 0.1));
+            border-left: 4px solid #27ae60;
         }
 
         .recommendation h4 {
-            color: #ff9500;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .recommendation.diabetic h4 {
+            color: #f5b7b1;
+        }
+
+        .recommendation.non-diabetic h4 {
+            color: #abebc6;
         }
 
         .recommendation p {
-            color: #666;
+            color: #bdc3c7;
             font-size: 13px;
-            line-height: 1.6;
+            line-height: 1.7;
         }
 
         .button-group {
             display: flex;
             gap: 15px;
             justify-content: center;
-            margin-top: 30px;
+            margin-top: 35px;
             flex-wrap: wrap;
         }
 
         .btn {
-            padding: 12px 30px;
+            padding: 12px 40px;
             border: none;
             border-radius: 8px;
             font-size: 14px;
@@ -278,25 +314,27 @@
             transition: all 0.3s ease;
             text-decoration: none;
             display: inline-block;
+            min-width: 180px;
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
             color: white;
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 8px 20px rgba(231, 76, 60, 0.4);
         }
 
         .btn-secondary {
-            background: #e0e0e0;
-            color: #333;
+            background: rgba(255, 255, 255, 0.1);
+            color: #bdc3c7;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .btn-secondary:hover {
-            background: #d0d0d0;
+            background: rgba(255, 255, 255, 0.15);
             transform: translateY(-2px);
         }
 
@@ -310,7 +348,7 @@
             }
 
             .probability-value {
-                font-size: 36px;
+                font-size: 42px;
             }
 
             .navbar {
@@ -322,6 +360,11 @@
                 width: 100%;
                 justify-content: space-between;
             }
+
+            .result-badge {
+                font-size: 22px;
+                padding: 20px 40px;
+            }
         }
     </style>
 </head>
@@ -329,7 +372,7 @@
     <div class="container">
         <!-- Navbar -->
         <div class="navbar">
-            <div class="navbar-brand">🏥 DiabetesCare</div>
+            <div class="navbar-brand">DiabetesCare</div>
             <div class="navbar-user">
                 <div class="user-info">User: <strong>{{ username }}</strong></div>
                 <a href="/logout" class="logout-btn">Logout</a>
@@ -345,11 +388,7 @@
 
             <!-- Result Badge -->
             <div class="result-badge {% if prediction == 'Diabetic' %}badge-diabetic{% else %}badge-non-diabetic{% endif %}">
-                {% if prediction == 'Diabetic' %}
-                    ⚠️ {{ prediction }}
-                {% else %}
-                    ✅ {{ prediction }}
-                {% endif %}
+                {{ prediction }}
             </div>
 
             <!-- Probability Section -->
@@ -366,7 +405,7 @@
 
             <!-- Patient Data Summary -->
             <div class="patient-data">
-                <h3>📊 Patient Health Metrics</h3>
+                <h3>Patient Health Metrics</h3>
                 <div class="data-grid">
                     <div class="data-item">
                         <div class="data-label">Glucose Level</div>
@@ -393,8 +432,8 @@
 
             <!-- Recommendation -->
             {% if prediction == 'Diabetic' %}
-            <div class="recommendation">
-                <h4>⚠️ Important Recommendation</h4>
+            <div class="recommendation diabetic">
+                <h4>Important Recommendation</h4>
                 <p>
                     Based on the prediction result, we recommend consulting with a healthcare professional for a comprehensive evaluation. 
                     Consider monitoring your health metrics regularly and maintaining a healthy lifestyle. This prediction is for informational 
@@ -402,8 +441,8 @@
                 </p>
             </div>
             {% else %}
-            <div class="recommendation" style="border-left-color: #51cf66;">
-                <h4 style="color: #51cf66;">✅ Positive Assessment</h4>
+            <div class="recommendation non-diabetic">
+                <h4>Positive Assessment</h4>
                 <p>
                     The prediction indicates a lower risk of diabetes. Continue maintaining healthy habits including regular exercise, 
                     balanced diet, and routine health check-ups. Keep monitoring your health metrics to ensure they remain within normal ranges.
@@ -413,8 +452,8 @@
 
             <!-- Action Buttons -->
             <div class="button-group">
-                <a href="/home" class="btn btn-primary">🔄 New Prediction</a>
-                <a href="/home" class="btn btn-secondary">📋 Back to Dashboard</a>
+                <a href="/home" class="btn btn-primary">New Prediction</a>
+                <a href="/home" class="btn btn-secondary">Back to Dashboard</a>
             </div>
         </div>
     </div>
